@@ -160,20 +160,13 @@
                         <div class="back-title">${p.name}</div>
                         <div class="back-desc">${p.desc}</div>
                         <div class="btn-group">
-                            <button class="add-to-cart" data-name="${p.name}" data-price="${p.price}"><i class="fas fa-shopping-cart"></i> Buy now</button>
-                            <button class="add-to-cart" data-name="${p.name}" data-price="${p.price}"><i class="fas fa-plus"></i> Add</button>
+                            <button onclick="buyNow('${p.name}', ${p.price})"><i class="fas fa-shopping-cart"></i> Buy now</button>
+                            <button onclick="addToCart('${p.name}', ${p.price})"><i class="fas fa-plus"></i> Add</button>
                         </div>
                     </div>
                 </div>
             `;
             grid.appendChild(card);
-        });
-
-        // Re-bind add-to-cart after DOM ready
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof attachAddToCartButtons === 'function') {
-                attachAddToCartButtons();
-            }
         });
     </script>
 </body>

@@ -18,13 +18,14 @@
             <img src="VANTAPIX__2_-removebg-preview.png" alt="VANTAPIX COMFORTS" class="nav-logo-img">
         </div>
         <div class="nav-links">
+            <a href="index.html">Home</a>
             <a href="collection.html" class="active">Collections</a>
             <a href="products.html">Products</a>
             <a href="about.html">About</a>
             <a href="support.html">Support</a>
             <a href="orders.html">Orders</a>
             <div class="nav-cart-wrapper" id="cartWrapper">
-                <button class="nav-cart" id="cartToggle" aria-label="Open cart">
+                <button class="nav-cart" id="cartToggle" aria-label="Open cart" onclick="window.location.href='cart.html'">
                     <i class="fas fa-shopping-bag"></i>
                     <span class="cart-badge" id="cartBadge">0</span>
                 </button>
@@ -131,8 +132,8 @@
                         <div class="back-title">${p.name}</div>
                         <div class="back-desc">${p.desc}</div>
                         <div class="btn-group">
-                            <button onclick="openQtyPopup('${p.name}', ${p.price})"><i class="fas fa-shopping-cart"></i> Buy now</button>
-                            <button onclick="openQtyPopup('${p.name}', ${p.price})"><i class="fas fa-plus"></i> Add</button>
+                            <button onclick="buyNow('${p.name}', ${p.price})"><i class="fas fa-shopping-cart"></i> Buy now</button>
+                            <button onclick="addToCart('${p.name}', ${p.price})"><i class="fas fa-plus"></i> Add</button>
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VANTAPIX COMFORTS · Category</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .category-page-header {
+            max-width: 1280px;
+            margin: 1rem auto 2rem;
+            padding: 0 2rem;
+            text-align: center;
+        }
+        .category-page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+        .category-page-header h1 span {
+            color: #ff7a00;
+        }
+        .category-page-header p {
+            color: #888;
+            margin-top: 0.5rem;
+        }
+        .back-to-products {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #ff7a00;
+            text-decoration: none;
+        }
+        .back-to-products:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="logo-area">
+            <img src="VANTAPIX__2_-removebg-preview.png" alt="VANTAPIX COMFORTS" class="nav-logo-img">
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="collection.html">Collections</a>
+            <a href="products.html">Products</a>
+            <a href="about.html">About</a>
+            <a href="support.html">Support</a>
+            <a href="orders.html">Orders</a>
+            <div class="nav-cart-wrapper" id="cartWrapper">
+                <button class="nav-cart" id="cartToggle" aria-label="Open cart" onclick="window.location.href='cart.html'">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+                <div class="cart-dropdown" id="cartDropdown">
+                    <h4>🛒 Your Cart</h4>
+                    <div id="cartItems"><div class="empty-cart">Your cart is empty.</div></div>
+                    <div class="cart-total" id="cartTotal" style="display:none;">
+                        <span>Total</span>
+                        <span>₹<span id="totalPrice">0.00</span></span>
+                    </div>
+                    <button class="checkout-btn" onclick="window.location.href='checkout.html'">Proceed to Checkout</button>
+                </div>
+            </div>
+            <!-- No search bar on category page -->
+        </div>
+    </header>
+
+    <!-- QUANTITY POPUP -->
+    <div class="quantity-overlay" id="quantityOverlay">
+        <div class="quantity-modal">
+            <div class="modal-product" id="modalProductName">Product Name</div>
+            <div class="modal-product-price" id="modalProductPrice">₹0.00</div>
+            <div class="quantity-control">
+                <button id="qtyDecrease">−</button>
+                <span class="qty-number" id="qtyDisplay">1</span>
+                <button id="qtyIncrease">+</button>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-cancel" id="qtyCancel">Cancel</button>
+                <button class="btn-add-cart" id="qtyConfirm">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE HEADER -->
+    <section class="category-page-header">
+        <h1>Category: <span id="categoryName">Loading...</span></h1>
+        <p id="categoryDesc">Browse products in this category.</p>
+        <a href="products.html" class="back-to-products">← Back to Categories</a>
+    </section>
+
+    <!-- PRODUCT GRID -->
+    <section class="product-section">
+        <div class="product-grid" id="categoryProductGrid"></div>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div class="footer-left">
+            <img src="VANTAPIX__2_-removebg-preview.png" alt="VANTAPIX COMFORTS" class="footer-logo">
+            <span class="footer-copyright">© 2026</span>
+        </div>
+        <div class="footer-right">
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="support.html">Contact</a>
+            </div>
+            <span><i class="fas fa-lock"></i> Secure checkout</span>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+    <script>
+        // =============================================================
+        // CATEGORY PAGE
+        // =============================================================
+
+        // Product database (same as products.html)
+        var productDatabase = [
+            { name: 'Aura Studio', price: 12499, icon: 'fa-headphones', rating: 4.5, desc: 'Noise-cancelling, 40h battery, immersive sound.', category: 'electronics' },
+            { name: 'Zen Earbuds', price: 6599, icon: 'fa-headphones', rating: 5, desc: 'True wireless, noise isolation, 24h battery.', category: 'electronics' },
+            { name: 'Nebula Speaker', price: 10799, icon: 'fa-volume-up', rating: 4.5, desc: '360° sound, waterproof, 12h playtime.', category: 'electronics' },
+            { name: 'Smart Display', price: 16799, icon: 'fa-tablet-alt', rating: 4.5, desc: '7" touchscreen, voice assistant, smart home hub.', category: 'electronics' },
+            { name: 'Wireless Charger', price: 3799, icon: 'fa-bolt', rating: 4, desc: 'Fast charging, 3-in-1, LED indicators.', category: 'electronics' },
+            { name: 'Bluetooth Tracker', price: 2499, icon: 'fa-map-pin', rating: 4.5, desc: 'Find your keys, wallet, or bag with ease.', category: 'electronics' },
+            { name: 'USB-C Hub', price: 4999, icon: 'fa-plug', rating: 4, desc: '7-in-1, 4K HDMI, 100W PD, SD card reader.', category: 'electronics' },
+            { name: 'Portable SSD', price: 7499, icon: 'fa-database', rating: 5, desc: '1TB, USB 3.2, shockproof, compact design.', category: 'electronics' },
+            { name: 'Apex Hoodie', price: 5499, icon: 'fa-user', rating: 4.5, desc: 'Premium cotton, oversized fit, embroidered logo.', category: 'fashion' },
+            { name: 'Nova Sneakers', price: 7499, icon: 'fa-shoe-prints', rating: 5, desc: 'Breathable mesh, memory foam, sleek design.', category: 'fashion' },
+            { name: 'Zen T-Shirt', price: 2899, icon: 'fa-tshirt', rating: 4.5, desc: 'Organic cotton, minimalist print, everyday comfort.', category: 'fashion' },
+            { name: 'Apex Backpack', price: 8299, icon: 'fa-suitcase', rating: 4.5, desc: 'Water-resistant, laptop sleeve, ergonomic design.', category: 'fashion' },
+            { name: 'Lunar Beanie', price: 1899, icon: 'fa-hat-wizard', rating: 4, desc: 'Wool blend, ribbed knit, one size fits most.', category: 'fashion' },
+            { name: 'Voyage Scarf', price: 2399, icon: 'fa-ribbon', rating: 4.5, desc: 'Cashmere blend, warm, elegant color palette.', category: 'fashion' },
+            { name: 'Apex Drill', price: 12499, icon: 'fa-tools', rating: 4.5, desc: 'Brushless motor, 20V, keyless chuck, 2 batteries.', category: 'machines' },
+            { name: 'Multi-Tool Set', price: 6599, icon: 'fa-wrench', rating: 4.5, desc: '18-in-1, stainless steel, compact carrying case.', category: 'machines' },
+            { name: 'Digital Caliper', price: 3799, icon: 'fa-ruler', rating: 4.5, desc: 'Precision measurement, 6", digital display, zero setting.', category: 'machines' },
+            { name: 'Tool Organizer', price: 3299, icon: 'fa-box', rating: 4, desc: 'Wall-mounted, magnetic strips, 12 slots, durable.', category: 'machines' },
+            { name: 'Laser Level', price: 4999, icon: 'fa-bullseye', rating: 4.5, desc: 'Self-leveling, green laser, 360° rotation.', category: 'machines' },
+            { name: 'Lunar Lamp', price: 4999, icon: 'fa-lightbulb', rating: 4.5, desc: 'Dimmable, warm glow, minimalist design.', category: 'gadgets' },
+            { name: 'Chrono V Watch', price: 20999, icon: 'fa-watch', rating: 5, desc: 'Titanium, heart rate, GPS, always-on display.', category: 'gadgets' },
+            { name: 'Nova Mug', price: 3299, icon: 'fa-mug-hot', rating: 5, desc: 'Ceramic, self-warming, 12oz, matte finish.', category: 'gadgets' },
+            { name: 'Zen Garden', price: 4599, icon: 'fa-tree', rating: 4.5, desc: 'Tabletop, sand, stones, rake, calming presence.', category: 'gadgets' },
+            { name: 'Smart Pen', price: 2399, icon: 'fa-pen', rating: 4, desc: 'Digital stylus, pressure sensitive, palm rejection.', category: 'gadgets' },
+            { name: 'Portable Projector', price: 14999, icon: 'fa-film', rating: 4.5, desc: '1080p, 2h battery, built-in speaker, mini size.', category: 'gadgets' },
+            { name: 'Mini Drone', price: 8299, icon: 'fa-helicopter', rating: 4, desc: '4K camera, 20min flight, remote control, foldable.', category: 'gadgets' }
+        ];
+
+        var categoryNames = {
+            electronics: 'Electronics',
+            fashion: 'Clothes & Fashion',
+            machines: 'Machines & Accessories',
+            gadgets: 'Cool Gadgets'
+        };
+
+        // Get category from URL
+        function getCategoryFromURL() {
+            var params = new URLSearchParams(window.location.search);
+            return params.get('cat');
+        }
+
+        var category = getCategoryFromURL();
+
+        // Render products
+        function renderCategoryProducts(category) {
+            var grid = document.getElementById('categoryProductGrid');
+            var nameEl = document.getElementById('categoryName');
+            var descEl = document.getElementById('categoryDesc');
+
+            if (!category || !categoryNames[category]) {
+                nameEl.textContent = 'Invalid Category';
+                descEl.textContent = 'Please go back and select a valid category.';
+                grid.innerHTML = '<p style="text-align:center; padding:2rem;">Category not found.</p>';
+                return;
+            }
+
+            var displayName = categoryNames[category];
+            nameEl.textContent = displayName;
+            descEl.textContent = 'Browse our collection of ' + displayName + ' products.';
+
+            var filtered = productDatabase.filter(function(p) { return p.category === category; });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '<p style="text-align:center; padding:2rem;">No products found in this category.</p>';
+                return;
+            }
+
+            filtered.forEach(function(p) {
+                var stars = '';
+                for (var i = 0; i < Math.floor(p.rating); i++) stars += '<i class="fas fa-star"></i>';
+                if (p.rating % 1 >= 0.5) stars += '<i class="fas fa-star-half-alt"></i>';
+
+                var card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="product-img"><i class="fas ${p.icon}"></i></div>
+                            <div class="product-name">${p.name}</div>
+                            <div class="product-price">₹${p.price.toLocaleString('en-IN')}</div>
+                            <div class="product-rating">${stars}</div>
+                        </div>
+                        <div class="card-back">
+                            <div class="back-title">${p.name}</div>
+                            <div class="back-desc">${p.desc}</div>
+                            <div class="btn-group">
+                                <button onclick="buyNow('${p.name}', ${p.price})"><i class="fas fa-shopping-cart"></i> Buy now</button>
+                                <button onclick="addToCart('${p.name}', ${p.price})"><i class="fas fa-plus"></i> Add</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            renderCategoryProducts(category);
+            updateBadge();
+        });
+    </script>
+</body>
+</html>

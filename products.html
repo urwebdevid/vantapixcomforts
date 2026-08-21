@@ -10,9 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Category Grid */
         .category-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; max-width: 1280px; margin: 0 auto; padding: 0 2rem 2rem; }
-        .category-card { perspective: 1200px; height: 300px; border-radius: 28px; cursor: pointer; }
+        .category-card { perspective: 1200px; height: 300px; border-radius: 28px; cursor: default; }
         .category-card .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.65s cubic-bezier(0.23,1,0.32,1); transform-style: preserve-3d; border-radius: 28px; }
         .category-card:hover .card-inner { transform: rotateY(180deg); }
         .category-card .card-front, .category-card .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; text-align: center; overflow: hidden; }
@@ -24,13 +23,8 @@
         .category-card .card-back { background: #ff7a00; transform: rotateY(180deg); color: #fff; box-shadow: 0 12px 32px -8px rgba(255,122,0,0.25); }
         .category-card .card-back .back-title { font-size: 1.2rem; font-weight: 600; margin-bottom: .5rem; }
         .category-card .card-back .back-desc { font-size: .9rem; opacity: .85; max-width: 90%; line-height: 1.5; margin-bottom: 1.2rem; }
-        .category-card .card-back .browse-btn { background: #fff; color: #ff7a00; border: none; padding: .6rem 1.8rem; border-radius: 40px; font-weight: 600; font-size: .85rem; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.15); transition: all .25s; }
-        .category-card .card-back .browse-btn:hover { transform: scale(1.04); box-shadow: 0 6px 24px rgba(0,0,0,0.2); }
-        .category-results .product-grid .product-card { height: 300px; }
-        .category-results .product-grid .product-card .card-front .product-img { font-size: 3rem; }
-        .category-results .product-grid .product-card .card-front .product-name { font-size: 1.1rem; }
-        .category-results .product-grid .product-card .card-front .product-price { font-size: 1rem; }
-        .no-products-msg { grid-column: 1 / -1; text-align: center; padding: 3rem 0; color: #999; font-size: 1.1rem; }
+        .category-card .card-back .browse-link { background: #fff; color: #ff7a00; padding: .6rem 1.8rem; border-radius: 40px; font-weight: 600; font-size: .85rem; text-decoration: none; display: inline-block; box-shadow: 0 4px 16px rgba(0,0,0,0.15); transition: all .25s; }
+        .category-card .card-back .browse-link:hover { transform: scale(1.04); box-shadow: 0 6px 24px rgba(0,0,0,0.2); }
         .category-results { max-width: 1280px; margin: 0 auto 4rem; padding: 0 2rem; }
         .category-results .results-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 1.5rem; padding-bottom: .5rem; border-bottom: 2px solid #f0f0f0; }
         .category-results .results-header h2 { font-size: 1.6rem; font-weight: 600; }
@@ -39,13 +33,13 @@
         .category-results .results-header .close-results:hover { color: #e74c3c; background: #fde8e8; }
         .category-results .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.8rem; }
         .category-results.hidden { display: none; }
+        .no-products-msg { grid-column: 1 / -1; text-align: center; padding: 3rem 0; color: #999; font-size: 1.1rem; }
         @media (max-width: 600px) {
             .category-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.2rem; padding: 0 1rem 1rem; }
             .category-card { height: 240px; }
             .category-card .card-front .cat-content .cat-icon { width: 60px; height: 60px; font-size: 2.5rem; }
             .category-card .card-front .cat-content .cat-name { font-size: 1.2rem; }
             .category-results .product-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; }
-            .category-results .product-grid .product-card { height: 260px; }
         }
     </style>
 </head>
@@ -125,7 +119,7 @@
                 <div class="card-back">
                     <div class="back-title">🔌 Electronics</div>
                     <div class="back-desc">Smart devices, audio gear, and tech essentials.</div>
-                    <button class="browse-btn" data-category="electronics">Browse Products →</button>
+                    <a href="category.html?cat=electronics" class="browse-link">Browse Products →</a>
                 </div>
             </div>
         </div>
@@ -144,7 +138,7 @@
                 <div class="card-back">
                     <div class="back-title">👗 Clothes &amp; Fashion</div>
                     <div class="back-desc">Premium apparel, accessories, and style essentials.</div>
-                    <button class="browse-btn" data-category="fashion">Browse Products →</button>
+                    <a href="category.html?cat=fashion" class="browse-link">Browse Products →</a>
                 </div>
             </div>
         </div>
@@ -163,7 +157,7 @@
                 <div class="card-back">
                     <div class="back-title">⚙️ Machines &amp; Accessories</div>
                     <div class="back-desc">Durable tools, precision instruments, and add-ons.</div>
-                    <button class="browse-btn" data-category="machines">Browse Products →</button>
+                    <a href="category.html?cat=machines" class="browse-link">Browse Products →</a>
                 </div>
             </div>
         </div>
@@ -182,19 +176,19 @@
                 <div class="card-back">
                     <div class="back-title">🤖 Cool Gadgets</div>
                     <div class="back-desc">Innovative, futuristic, and must-have tech toys.</div>
-                    <button class="browse-btn" data-category="gadgets">Browse Products →</button>
+                    <a href="category.html?cat=gadgets" class="browse-link">Browse Products →</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- CATEGORY RESULTS -->
-    <div class="category-results hidden" id="categoryResults">
+    <!-- SEARCH RESULTS (optional) -->
+    <div class="category-results hidden" id="searchResults">
         <div class="results-header">
-            <h2 id="resultsTitle">Products in <span>Category</span></h2>
-            <button class="close-results" id="closeResults"><i class="fas fa-times"></i> Close</button>
+            <h2 id="searchTitle">Search Results</h2>
+            <button class="close-results" id="closeSearch"><i class="fas fa-times"></i> Close</button>
         </div>
-        <div class="product-grid" id="resultsGrid"></div>
+        <div class="product-grid" id="searchGrid"></div>
     </div>
 
     <!-- FOOTER -->
@@ -216,7 +210,7 @@
 
     <script src="script.js"></script>
     <script>
-        // Product Database
+        // Product database (same as before)
         var productDatabase = [
             { name: 'Aura Studio', price: 12499, icon: 'fa-headphones', rating: 4.5, desc: 'Noise-cancelling, 40h battery, immersive sound.', category: 'electronics' },
             { name: 'Zen Earbuds', price: 6599, icon: 'fa-headphones', rating: 5, desc: 'True wireless, noise isolation, 24h battery.', category: 'electronics' },
@@ -246,106 +240,19 @@
             { name: 'Mini Drone', price: 8299, icon: 'fa-helicopter', rating: 4, desc: '4K camera, 20min flight, remote control, foldable.', category: 'gadgets' }
         ];
 
-        var categoryNames = {
-            electronics: 'Electronics',
-            fashion: 'Clothes & Fashion',
-            machines: 'Machines & Accessories',
-            gadgets: 'Cool Gadgets'
-        };
-
-        // ----- GLOBALLY DEFINED showCategory -----
-        window.showCategory = function(category) {
-            console.log('🔍 Showing category:', category);
-            var filtered = productDatabase.filter(function(p) { return p.category === category; });
-            var displayName = categoryNames[category] || category;
-
-            var titleEl = document.getElementById('resultsTitle');
-            if (titleEl) titleEl.innerHTML = 'Products in <span>' + displayName + '</span>';
-
-            var grid = document.getElementById('resultsGrid');
-            grid.innerHTML = '';
-
-            if (filtered.length === 0) {
-                grid.innerHTML = '<div class="no-products-msg">No products found.</div>';
-            } else {
-                filtered.forEach(function(p) {
-                    var stars = '';
-                    for (var i = 0; i < Math.floor(p.rating); i++) stars += '<i class="fas fa-star"></i>';
-                    if (p.rating % 1 >= 0.5) stars += '<i class="fas fa-star-half-alt"></i>';
-
-                    var card = document.createElement('div');
-                    card.className = 'product-card';
-                    card.innerHTML = `
-                        <div class="card-inner">
-                            <div class="card-front">
-                                <div class="product-img"><i class="fas ${p.icon}"></i></div>
-                                <div class="product-name">${p.name}</div>
-                                <div class="product-price">₹${p.price.toLocaleString('en-IN')}</div>
-                                <div class="product-rating">${stars}</div>
-                            </div>
-                            <div class="card-back">
-                                <div class="back-title">${p.name}</div>
-                                <div class="back-desc">${p.desc}</div>
-                                <div class="btn-group">
-                                    <button class="add-to-cart" data-name="${p.name}" data-price="${p.price}"><i class="fas fa-shopping-cart"></i> Buy now</button>
-                                    <button class="add-to-cart" data-name="${p.name}" data-price="${p.price}"><i class="fas fa-plus"></i> Add</button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    grid.appendChild(card);
-                });
-            }
-
-            var resultsSection = document.getElementById('categoryResults');
-            resultsSection.classList.remove('hidden');
-            setTimeout(function() {
-                resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
-
-            // Re-bind add-to-cart buttons
-            if (typeof attachAddToCartButtons === 'function') {
-                attachAddToCartButtons();
-            }
-        };
-
-        // ----- ATTACH BROWSE BUTTONS -----
-        function attachBrowseButtons() {
-            var buttons = document.querySelectorAll('.browse-btn');
-            buttons.forEach(function(btn) {
-                btn.removeEventListener('click', handleBrowse);
-                btn.addEventListener('click', handleBrowse);
-            });
-        }
-
-        function handleBrowse(e) {
-            var category = this.dataset.category;
-            if (typeof window.showCategory === 'function') {
-                window.showCategory(category);
-            } else {
-                alert('Error: showCategory not defined.');
-            }
-        }
-
-        // ----- CLOSE RESULTS -----
-        document.getElementById('closeResults').addEventListener('click', function() {
-            document.getElementById('categoryResults').classList.add('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // ----- SEARCH -----
+        // ----- SEARCH FUNCTIONALITY -----
         document.getElementById('searchButton').addEventListener('click', function() {
             var query = document.getElementById('searchInput').value.toLowerCase().trim();
             if (query === '') {
-                document.getElementById('categoryResults').classList.add('hidden');
+                document.getElementById('searchResults').classList.add('hidden');
                 return;
             }
             var filtered = productDatabase.filter(function(p) {
                 return p.name.toLowerCase().includes(query) || p.category.includes(query) || p.desc.toLowerCase().includes(query);
             });
-            var titleEl = document.getElementById('resultsTitle');
+            var titleEl = document.getElementById('searchTitle');
             titleEl.innerHTML = 'Results for "<span>' + query + '</span>"';
-            var grid = document.getElementById('resultsGrid');
+            var grid = document.getElementById('searchGrid');
             grid.innerHTML = '';
             if (filtered.length === 0) {
                 grid.innerHTML = '<div class="no-products-msg">No products found.</div>';
@@ -368,8 +275,8 @@
                                 <div class="back-title">${p.name}</div>
                                 <div class="back-desc">${p.desc}</div>
                                 <div class="btn-group">
-                                    <button class="add-to-cart" data-name="${p.name}" data-price="${p.price}"><i class="fas fa-shopping-cart"></i> Buy now</button>
-                                    <button class="add-to-cart" data-name="${p.name}" data-price="${p.price}"><i class="fas fa-plus"></i> Add</button>
+                                    <button onclick="buyNow('${p.name}', ${p.price})"><i class="fas fa-shopping-cart"></i> Buy now</button>
+                                    <button onclick="addToCart('${p.name}', ${p.price})"><i class="fas fa-plus"></i> Add</button>
                                 </div>
                             </div>
                         </div>
@@ -377,27 +284,17 @@
                     grid.appendChild(card);
                 });
             }
-            var resultsSection = document.getElementById('categoryResults');
-            resultsSection.classList.remove('hidden');
-            setTimeout(function() {
-                resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
-            if (typeof attachAddToCartButtons === 'function') {
-                attachAddToCartButtons();
-            }
+            document.getElementById('searchResults').classList.remove('hidden');
+            document.getElementById('searchResults').scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
 
         document.getElementById('searchInput').addEventListener('keydown', function(e) {
             if (e.key === 'Enter') document.getElementById('searchButton').click();
         });
 
-        // ----- INIT -----
-        document.addEventListener('DOMContentLoaded', function() {
-            attachBrowseButtons();
-            if (typeof attachAddToCartButtons === 'function') {
-                attachAddToCartButtons();
-            }
-            updateBadge();
+        document.getElementById('closeSearch').addEventListener('click', function() {
+            document.getElementById('searchResults').classList.add('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
 </body>
