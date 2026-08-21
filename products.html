@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VANTAPIX COMFORTS · Products</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== All your existing styles ===== */
+        .category-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; max-width: 1280px; margin: 0 auto; padding: 0 2rem 2rem; }
+        .category-card { perspective: 1200px; height: 300px; border-radius: 28px; cursor: pointer; }
+        .category-card .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.65s cubic-bezier(0.23,1,0.32,1); transform-style: preserve-3d; border-radius: 28px; }
+        .category-card:hover .card-inner { transform: rotateY(180deg); }
+        .category-card .card-front, .category-card .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; text-align: center; overflow: hidden; }
+        .category-card .card-front .cat-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.3); border-radius: 28px; }
+        .category-card .card-front .cat-content { position: relative; z-index: 2; color: #fff; text-shadow: 0 2px 20px rgba(0,0,0,0.5); }
+        .category-card .card-front .cat-content .cat-icon { font-size: 3.5rem; color: #fff; margin-bottom: .8rem; background: rgba(255,255,255,0.15); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto .8rem auto; backdrop-filter: blur(4px); border: 2px solid rgba(255,255,255,0.2); }
+        .category-card .card-front .cat-content .cat-name { font-size: 1.6rem; font-weight: 700; }
+        .category-card .card-front .cat-content .cat-count { font-size: .9rem; opacity: .85; margin-top: .2rem; }
+        .category-card .card-back { background: #ff7a00; transform: rotateY(180deg); color: #fff; box-shadow: 0 12px 32px -8px rgba(255,122,0,0.25); }
+        .category-card .card-back .back-title { font-size: 1.2rem; font-weight: 600; margin-bottom: .5rem; }
+        .category-card .card-back .back-desc { font-size: .9rem; opacity: .85; max-width: 90%; line-height: 1.5; margin-bottom: 1.2rem; }
+        .category-card .card-back .browse-btn { background: #fff; color: #ff7a00; border: none; padding: .6rem 1.8rem; border-radius: 40px; font-weight: 600; font-size: .85rem; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.15); transition: all .25s; }
+        .category-card .card-back .browse-btn:hover { transform: scale(1.04); box-shadow: 0 6px 24px rgba(0,0,0,0.2); }
+        .category-results .product-grid .product-card { height: 300px; }
+        .category-results .product-grid .product-card .card-front .product-img { font-size: 3rem; }
+        .category-results .product-grid .product-card .card-front .product-name { font-size: 1.1rem; }
+        .category-results .product-grid .product-card .card-front .product-price { font-size: 1rem; }
+        .no-products-msg { grid-column: 1 / -1; text-align: center; padding: 3rem 0; color: #999; font-size: 1.1rem; }
+        @media (max-width: 600px) {
+            .category-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.2rem; padding: 0 1rem 1rem; }
+            .category-card { height: 240px; }
+            .category-card .card-front .cat-content .cat-icon { width: 60px; height: 60px; font-size: 2.5rem; }
+            .category-card .card-front .cat-content .cat-name { font-size: 1.2rem; }
+            .category-results .product-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; }
+            .category-results .product-grid .product-card { height: 260px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVBAR (same as before) ===== -->
+    <header class="navbar">
+        <div class="logo-area">
+            <img src="VANTAPIX__2_-removebg-preview.png" alt="VANTAPIX COMFORTS" class="nav-logo-img">
+        </div>
+        <div class="nav-links">
+            <a href="collection.html">Collections</a>
+            <a href="products.html" class="active">Products</a>
+            <a href="about.html">About</a>
+            <a href="support.html">Support</a>
+            <a href="orders.html">Orders</a>
+            <div class="nav-cart-wrapper" id="cartWrapper">
+                <button class="nav-cart" id="cartToggle" aria-label="Open cart">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+                <div class="cart-dropdown" id="cartDropdown">
+                    <h4>🛒 Your Cart</h4>
+                    <div id="cartItems"><div class="empty-cart">Your cart is empty.</div></div>
+                    <div class="cart-total" id="cartTotal" style="display:none;">
+                        <span>Total</span>
+                        <span>₹<span id="totalPrice">0.00</span></span>
+                    </div>
+                    <button class="checkout-btn" onclick="window.location.href='checkout.html'">Proceed to Checkout</button>
+                </div>
+            </div>
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" placeholder="Search products...">
+                <button id="searchButton"><i class="fas fa-search"></i> <span>Search</span></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== QUANTITY POPUP ===== -->
+    <div class="quantity-overlay" id="quantityOverlay">
+        <div class="quantity-modal">
+            <div class="modal-product" id="modalProductName">Product Name</div>
+            <div class="modal-product-price" id="modalProductPrice">₹0.00</div>
+            <div class="quantity-control">
+                <button id="qtyDecrease">−</button>
+                <span class="qty-number" id="qtyDisplay">1</span>
+                <button id="qtyIncrease">+</button>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-cancel" id="qtyCancel">Cancel</button>
+                <button class="btn-add-cart" id="qtyConfirm">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PAGE HEADER ===== -->
+    <section class="page-header">
+        <h1>Product <span>Categories</span></h1>
+        <p>Browse our curated categories. Hover over a category card to explore.</p>
+    </section>
+
+    <!-- ===== CATEGORY GRID ===== -->
+    <div class="category-grid">
+        <!-- Electronics -->
+        <div class="category-card" data-category="electronics">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div style="position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e,#0f3460);border-radius:28px;"></div>
+                    <div class="cat-overlay"></div>
+                    <div class="cat-content">
+                        <div class="cat-icon"><i class="fas fa-microchip"></i></div>
+                        <div class="cat-name">Electronics</div>
+                        <div class="cat-count">8 products</div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="back-title">🔌 Electronics</div>
+                    <div class="back-desc">Smart devices, audio gear, and tech essentials.</div>
+                    <button class="browse-btn" data-category="electronics">Browse Products →</button>
+                </div>
+            </div>
+        </div>
+        <!-- Fashion -->
+        <div class="category-card" data-category="fashion">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div style="position:absolute;inset:0;background:linear-gradient(135deg,#2d1b3d,#7c3aed);border-radius:28px;"></div>
+                    <div class="cat-overlay"></div>
+                    <div class="cat-content">
+                        <div class="cat-icon"><i class="fas fa-tshirt"></i></div>
+                        <div class="cat-name">Clothes &amp; Fashion</div>
+                        <div class="cat-count">6 products</div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="back-title">👗 Clothes &amp; Fashion</div>
+                    <div class="back-desc">Premium apparel, accessories, and style essentials.</div>
+                    <button class="browse-btn" data-category="fashion">Browse Products →</button>
+                </div>
+            </div>
+        </div>
+        <!-- Machines -->
+        <div class="category-card" data-category="machines">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div style="position:absolute;inset:0;background:linear-gradient(135deg,#064e3b,#059669);border-radius:28px;"></div>
+                    <div class="cat-overlay"></div>
+                    <div class="cat-content">
+                        <div class="cat-icon"><i class="fas fa-cogs"></i></div>
+                        <div class="cat-name">Machines &amp; Accessories</div>
+                        <div class="cat-count">5 products</div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="back-title">⚙️ Machines &amp; Accessories</div>
+                    <div class="back-desc">Durable tools, precision instruments, and add-ons.</div>
+                    <button class="browse-btn" data-category="machines">Browse Products →</button>
+                </div>
+            </div>
+        </div>
+        <!-- Gadgets -->
+        <div class="category-card" data-category="gadgets">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div style="position:absolute;inset:0;background:linear-gradient(135deg,#451a03,#d97706);border-radius:28px;"></div>
+                    <div class="cat-overlay"></div>
+                    <div class="cat-content">
+                        <div class="cat-icon"><i class="fas fa-robot"></i></div>
+                        <div class="cat-name">Cool Gadgets</div>
+                        <div class="cat-count">7 products</div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="back-title">🤖 Cool Gadgets</div>
+                    <div class="back-desc">Innovative, futuristic, and must-have tech toys.</div>
+                    <button class="browse-btn" data-category="gadgets">Browse Products →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== CATEGORY RESULTS ===== -->
+    <div class="category-results hidden" id="categoryResults">
+        <div class="results-header">
+            <h2 id="resultsTitle">Products in <span>Category</span></h2>
+            <button class="close-results" id="closeResults"><i class="fas fa-times"></i> Close</button>
+        </div>
+        <div class="product-grid" id="resultsGrid"></div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <div class="footer">
+        <div class="footer-left">
+            <img src="VANTAPIX__2_-removebg-preview.png" alt="VANTAPIX COMFORTS" class="footer-logo">
+            <span class="footer-copyright">© 2026</span>
+        </div>
+        <div class="footer-right">
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="support.html">Contact</a>
+            </div>
+            <span><i class="fas fa-lock"></i> Secure checkout</span>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <!-- ===== ALL JAVASCRIPT – NO EXTERNAL DEPENDENCIES ===== -->
+    <script>
+        // =============================================================
+        // PRODUCT DATABASE
+        // =============================================================
+        var productDatabase = [
+            { name: 'Aura Studio', price: 12499, icon: 'fa-headphones', rating: 4.5, desc: 'Noise-cancelling, 40h battery, immersive sound.', category: 'electronics' },
+            { name: 'Zen Earbuds', price: 6599, icon: 'fa-headphones', rating: 5, desc: 'True wireless, noise isolation, 24h battery.', category: 'electronics' },
+            { name: 'Nebula Speaker', price: 10799, icon: 'fa-volume-up', rating: 4.5, desc: '360° sound, waterproof, 12h playtime.', category: 'electronics' },
+            { name: 'Smart Display', price: 16799, icon: 'fa-tablet-alt', rating: 4.5, desc: '7" touchscreen, voice assistant, smart home hub.', category: 'electronics' },
+            { name: 'Wireless Charger', price: 3799, icon: 'fa-bolt', rating: 4, desc: 'Fast charging, 3-in-1, LED indicators.', category: 'electronics' },
+            { name: 'Bluetooth Tracker', price: 2499, icon: 'fa-map-pin', rating: 4.5, desc: 'Find your keys, wallet, or bag with ease.', category: 'electronics' },
+            { name: 'USB-C Hub', price: 4999, icon: 'fa-plug', rating: 4, desc: '7-in-1, 4K HDMI, 100W PD, SD card reader.', category: 'electronics' },
+            { name: 'Portable SSD', price: 7499, icon: 'fa-database', rating: 5, desc: '1TB, USB 3.2, shockproof, compact design.', category: 'electronics' },
+            { name: 'Apex Hoodie', price: 5499, icon: 'fa-user', rating: 4.5, desc: 'Premium cotton, oversized fit, embroidered logo.', category: 'fashion' },
+            { name: 'Nova Sneakers', price: 7499, icon: 'fa-shoe-prints', rating: 5, desc: 'Breathable mesh, memory foam, sleek design.', category: 'fashion' },
+            { name: 'Zen T-Shirt', price: 2899, icon: 'fa-tshirt', rating: 4.5, desc: 'Organic cotton, minimalist print, everyday comfort.', category: 'fashion' },
+            { name: 'Apex Backpack', price: 8299, icon: 'fa-suitcase', rating: 4.5, desc: 'Water-resistant, laptop sleeve, ergonomic design.', category: 'fashion' },
+            { name: 'Lunar Beanie', price: 1899, icon: 'fa-hat-wizard', rating: 4, desc: 'Wool blend, ribbed knit, one size fits most.', category: 'fashion' },
+            { name: 'Voyage Scarf', price: 2399, icon: 'fa-ribbon', rating: 4.5, desc: 'Cashmere blend, warm, elegant color palette.', category: 'fashion' },
+            { name: 'Apex Drill', price: 12499, icon: 'fa-tools', rating: 4.5, desc: 'Brushless motor, 20V, keyless chuck, 2 batteries.', category: 'machines' },
+            { name: 'Multi-Tool Set', price: 6599, icon: 'fa-wrench', rating: 4.5, desc: '18-in-1, stainless steel, compact carrying case.', category: 'machines' },
+            { name: 'Digital Caliper', price: 3799, icon: 'fa-ruler', rating: 4.5, desc: 'Precision measurement, 6", digital display, zero setting.', category: 'machines' },
+            { name: 'Tool Organizer', price: 3299, icon: 'fa-box', rating: 4, desc: 'Wall-mounted, magnetic strips, 12 slots, durable.', category: 'machines' },
+            { name: 'Laser Level', price: 4999, icon: 'fa-bullseye', rating: 4.5, desc: 'Self-leveling, green laser, 360° rotation.', category: 'machines' },
+            { name: 'Lunar Lamp', price: 4999, icon: 'fa-lightbulb', rating: 4.5, desc: 'Dimmable, warm glow, minimalist design.', category: 'gadgets' },
+            { name: 'Chrono V Watch', price: 20999, icon: 'fa-watch', rating: 5, desc: 'Titanium, heart rate, GPS, always-on display.', category: 'gadgets' },
+            { name: 'Nova Mug', price: 3299, icon: 'fa-mug-hot', rating: 5, desc: 'Ceramic, self-warming, 12oz, matte finish.', category: 'gadgets' },
+            { name: 'Zen Garden', price: 4599, icon: 'fa-tree', rating: 4.5, desc: 'Tabletop, sand, stones, rake, calming presence.', category: 'gadgets' },
+            { name: 'Smart Pen', price: 2399, icon: 'fa-pen', rating: 4, desc: 'Digital stylus, pressure sensitive, palm rejection.', category: 'gadgets' },
+            { name: 'Portable Projector', price: 14999, icon: 'fa-film', rating: 4.5, desc: '1080p, 2h battery, built-in speaker, mini size.', category: 'gadgets' },
+            { name: 'Mini Drone', price: 8299, icon: 'fa-helicopter', rating: 4, desc: '4K camera, 20min flight, remote control, foldable.', category: 'gadgets' }
+        ];
+
+        var categoryNames = {
+            electronics: 'Electronics',
+            fashion: 'Clothes & Fashion',
+            machines: 'Machines & Accessories',
+            gadgets: 'Cool Gadgets'
+        };
+
+        // =============================================================
+        // GLOBALLY DEFINED showCategory
+        // =============================================================
+        window.showCategory = function(category) {
+            console.log('🔍 Showing category:', category);
+            var filtered = productDatabase.filter(function(p) { return p.category === category; });
+            var displayName = categoryNames[category] || category;
+
+            var titleEl = document.getElementById('resultsTitle');
+            if (titleEl) titleEl.innerHTML = 'Products in <span>' + displayName + '</span>';
+
+            var grid = document.getElementById('resultsGrid');
+            grid.innerHTML = '';
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '<div class="no-products-msg">No products found.</div>';
+            } else {
+                filtered.forEach(function(p) {
+                    var stars = '';
+                    for (var i = 0; i < Math.floor(p.rating); i++) stars += '<i class="fas fa-star"></i>';
+                    if (p.rating % 1 >= 0.5) stars += '<i class="fas fa-star-half-alt"></i>';
+
+                    var card = document.createElement('div');
+                    card.className = 'product-card';
+                    card.innerHTML = `
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <div class="product-img"><i class="fas ${p.icon}"></i></div>
+                                <div class="product-name">${p.name}</div>
+                                <div class="product-price">₹${p.price.toLocaleString('en-IN')}</div>
+                                <div class="product-rating">${stars}</div>
+                            </div>
+                            <div class="card-back">
+                                <div class="back-title">${p.name}</div>
+                                <div class="back-desc">${p.desc}</div>
+                                <div class="btn-group">
+                                    <button onclick="openQtyPopup('${p.name}', ${p.price})"><i class="fas fa-shopping-cart"></i> Buy now</button>
+                                    <button onclick="openQtyPopup('${p.name}', ${p.price})"><i class="fas fa-plus"></i> Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+
+            var resultsSection = document.getElementById('categoryResults');
+            resultsSection.classList.remove('hidden');
+            setTimeout(function() {
+                resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        };
+
+        // =============================================================
+        // ATTACH EVENT LISTENERS TO BROWSE BUTTONS
+        // =============================================================
+        function attachBrowseButtons() {
+            var buttons = document.querySelectorAll('.browse-btn');
+            console.log('🔘 Found ' + buttons.length + ' browse buttons');
+            buttons.forEach(function(btn) {
+                btn.removeEventListener('click', handleBrowseClick);
+                btn.addEventListener('click', handleBrowseClick);
+            });
+        }
+
+        function handleBrowseClick(e) {
+            var category = this.dataset.category;
+            console.log('🖱️ Browse clicked for category:', category);
+            if (typeof window.showCategory === 'function') {
+                window.showCategory(category);
+            } else {
+                alert('Error: showCategory not defined.');
+            }
+        }
+
+        // =============================================================
+        // CLOSE RESULTS
+        // =============================================================
+        document.getElementById('closeResults').addEventListener('click', function() {
+            document.getElementById('categoryResults').classList.add('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // =============================================================
+        // SEARCH
+        // =============================================================
+        document.getElementById('searchButton').addEventListener('click', function() {
+            var query = document.getElementById('searchInput').value.toLowerCase().trim();
+            if (query === '') {
+                document.getElementById('categoryResults').classList.add('hidden');
+                return;
+            }
+            var filtered = productDatabase.filter(function(p) {
+                return p.name.toLowerCase().includes(query) ||
+                       p.category.includes(query) ||
+                       p.desc.toLowerCase().includes(query);
+            });
+            var titleEl = document.getElementById('resultsTitle');
+            titleEl.innerHTML = 'Results for "<span>' + query + '</span>"';
+            var grid = document.getElementById('resultsGrid');
+            grid.innerHTML = '';
+            if (filtered.length === 0) {
+                grid.innerHTML = '<div class="no-products-msg">No products found.</div>';
+            } else {
+                filtered.forEach(function(p) {
+                    var stars = '';
+                    for (var i = 0; i < Math.floor(p.rating); i++) stars += '<i class="fas fa-star"></i>';
+                    if (p.rating % 1 >= 0.5) stars += '<i class="fas fa-star-half-alt"></i>';
+                    var card = document.createElement('div');
+                    card.className = 'product-card';
+                    card.innerHTML = `
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <div class="product-img"><i class="fas ${p.icon}"></i></div>
+                                <div class="product-name">${p.name}</div>
+                                <div class="product-price">₹${p.price.toLocaleString('en-IN')}</div>
+                                <div class="product-rating">${stars}</div>
+                            </div>
+                            <div class="card-back">
+                                <div class="back-title">${p.name}</div>
+                                <div class="back-desc">${p.desc}</div>
+                                <div class="btn-group">
+                                    <button onclick="openQtyPopup('${p.name}', ${p.price})"><i class="fas fa-shopping-cart"></i> Buy now</button>
+                                    <button onclick="openQtyPopup('${p.name}', ${p.price})"><i class="fas fa-plus"></i> Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+            var resultsSection = document.getElementById('categoryResults');
+            resultsSection.classList.remove('hidden');
+            setTimeout(function() {
+                resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        });
+
+        document.getElementById('searchInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') document.getElementById('searchButton').click();
+        });
+
+        // =============================================================
+        // QUANTITY POPUP (self-contained)
+        // =============================================================
+        var currentProduct = null;
+        var currentQty = 1;
+
+        window.openQtyPopup = function(name, price) {
+            currentProduct = { name: name, price: price };
+            currentQty = 1;
+            document.getElementById('modalProductName').textContent = name;
+            document.getElementById('modalProductPrice').textContent = '₹' + price.toFixed(2) + ' each';
+            document.getElementById('qtyDisplay').textContent = '1';
+            document.getElementById('quantityOverlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        };
+
+        function closeQtyPopup() {
+            document.getElementById('quantityOverlay').classList.remove('open');
+            document.body.style.overflow = '';
+            currentProduct = null;
+        }
+
+        document.getElementById('qtyDecrease').addEventListener('click', function() {
+            if (currentQty > 1) { currentQty--; document.getElementById('qtyDisplay').textContent = currentQty; }
+        });
+        document.getElementById('qtyIncrease').addEventListener('click', function() {
+            if (currentQty < 99) { currentQty++; document.getElementById('qtyDisplay').textContent = currentQty; }
+        });
+        document.getElementById('qtyCancel').addEventListener('click', closeQtyPopup);
+        document.getElementById('qtyConfirm').addEventListener('click', function() {
+            if (currentProduct) {
+                addToCart(currentProduct.name, currentProduct.price, currentQty);
+                closeQtyPopup();
+            }
+        });
+        document.getElementById('quantityOverlay').addEventListener('click', function(e) {
+            if (e.target === this) closeQtyPopup();
+        });
+
+        // =============================================================
+        // CART FUNCTIONS (self-contained)
+        // =============================================================
+        function getCart() {
+            try { return JSON.parse(localStorage.getItem('vantapixCart')) || []; } catch(e) { return []; }
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem('vantapixCart', JSON.stringify(cart));
+        }
+
+        function addToCart(name, price, qty) {
+            var cart = getCart();
+            var existing = cart.find(function(item) { return item.name === name; });
+            if (existing) { existing.quantity += qty; } 
+            else { cart.push({ name: name, price: price, quantity: qty }); }
+            saveCart(cart);
+            updateBadge();
+            showToast('🛒 Added ' + qty + ' × ' + name + ' to cart!');
+        }
+
+        function updateBadge() {
+            var cart = getCart();
+            var count = 0;
+            cart.forEach(function(item) { count += item.quantity; });
+            var badge = document.getElementById('cartBadge');
+            if (badge) { badge.textContent = count; }
+            updateDropdown();
+        }
+
+        function updateDropdown() {
+            var cart = getCart();
+            var total = 0;
+            var items = document.getElementById('cartItems');
+            var totalDiv = document.getElementById('cartTotal');
+            var totalPrice = document.getElementById('totalPrice');
+            if (!items) return;
+            if (cart.length === 0) {
+                items.innerHTML = '<div class="empty-cart">Your cart is empty.</div>';
+                if (totalDiv) totalDiv.style.display = 'none';
+            } else {
+                var html = '';
+                cart.forEach(function(item, index) {
+                    total += item.price * item.quantity;
+                    html += `
+                        <div class="cart-item">
+                            <span class="item-name">${item.name} × ${item.quantity}</span>
+                            <span>
+                                <span class="item-price">₹${(item.price * item.quantity).toFixed(2)}</span>
+                                <button class="item-remove" onclick="removeFromCart(${index})">✕</button>
+                            </span>
+                        </div>
+                    `;
+                });
+                items.innerHTML = html;
+                if (totalDiv) {
+                    totalDiv.style.display = 'flex';
+                    if (totalPrice) totalPrice.textContent = total.toFixed(2);
+                }
+            }
+        }
+
+        window.removeFromCart = function(index) {
+            var cart = getCart();
+            cart.splice(index, 1);
+            saveCart(cart);
+            updateBadge();
+            showToast('✕ Item removed from cart');
+        };
+
+        function showToast(message) {
+            var toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast show';
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(function() { toast.classList.remove('show'); }, 3000);
+        }
+
+        // =============================================================
+        // CART TOGGLE
+        // =============================================================
+        document.getElementById('cartToggle').addEventListener('click', function(e) {
+            e.stopPropagation();
+            document.getElementById('cartDropdown').classList.toggle('open');
+        });
+        document.addEventListener('click', function(e) {
+            var wrapper = document.querySelector('.nav-cart-wrapper');
+            if (wrapper && !wrapper.contains(e.target)) {
+                document.getElementById('cartDropdown').classList.remove('open');
+            }
+        });
+
+        // =============================================================
+        // INIT
+        // =============================================================
+        function init() {
+            attachBrowseButtons();
+            updateBadge();
+            console.log('✅ Products page initialized');
+        }
+
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            init();
+        } else {
+            document.addEventListener('DOMContentLoaded', init);
+        }
+    </script>
+</body>
+</html>

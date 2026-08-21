@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VANTAPIX COMFORTS · Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .browse-more {
+            max-width: 1280px;
+            margin: -1rem auto 3rem;
+            padding: 0 2rem;
+            text-align: center;
+        }
+        .browse-more .browse-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+            border: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+        .browse-more .browse-card:hover {
+            box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+            transform: translateY(-2px);
+        }
+        .browse-more .browse-card p {
+            font-size: 1.1rem;
+            color: #4a4a4a;
+            font-weight: 400;
+        }
+        .browse-more .browse-card .browse-link {
+            color: #ff7a00;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: all 0.25s ease;
+            padding-bottom: 2px;
+        }
+        .browse-more .browse-card .browse-link:hover {
+            border-bottom-color: #ff7a00;
+            color: #e66b00;
+        }
+        .browse-more .browse-card .browse-link .arrow-icon {
+            display: inline-block;
+            margin-left: 6px;
+            transition: transform 0.25s ease;
+        }
+        .browse-more .browse-card .browse-link:hover .arrow-icon {
+            transform: translateX(6px);
+        }
+        @media (max-width: 600px) {
+            .browse-more .browse-card p { font-size: 0.95rem; }
+            .browse-more .browse-card { padding: 1.8rem 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- INTRO OVERLAY -->
+    <div class="intro-overlay" id="introOverlay">
+        <video id="introVideo" autoplay muted playsinline>
+            <source src="your-intro-video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="logo-area">
+            <img src="VANTAPIX__2_-removebg-preview.png" alt="VANTAPIX COMFORTS" class="nav-logo-img">
+        </div>
+        <div class="nav-links">
+            <a href="collection.html">Collections</a>
+            <a href="products.html">Products</a>
+            <a href="about.html">About</a>
+            <a href="support.html">Support</a>
+            <a href="orders.html">Orders</a>
+            <div class="nav-cart-wrapper" id="cartWrapper">
+                <button class="nav-cart" id="cartToggle" aria-label="Open cart">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+                <div class="cart-dropdown" id="cartDropdown">
+                    <h4>🛒 Your Cart</h4>
+                    <div id="cartItems"><div class="empty-cart">Your cart is empty.</div></div>
+                    <div class="cart-total" id="cartTotal" style="display:none;">
+                        <span>Total</span>
+                        <span>₹<span id="totalPrice">0.00</span></span>
+                    </div>
+                    <button class="checkout-btn" onclick="window.location.href='checkout.html'">Proceed to Checkout</button>
+                </div>
+            </div>
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" placeholder="Search products...">
+                <button id="searchButton"><i class="fas fa-search"></i> <span>Search</span></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- QUANTITY POPUP -->
+    <div class="quantity-overlay" id="quantityOverlay">
+        <div class="quantity-modal">
+            <div class="modal-product" id="modalProductName">Product Name</div>
+            <div class="modal-product-price" id="modalProductPrice">₹0.00</div>
+            <div class="quantity-control">
+                <button id="qtyDecrease">−</button>
+                <span class="qty-number" id="qtyDisplay">1</span>
+                <button id="qtyIncrease">+</button>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-cancel" id="qtyCancel">Cancel</button>
+                <button class="btn-add-cart" id="qtyConfirm">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-text">
+            <img src="VANTAPIX__2_-removebg-preview.png" alt="VANTAPIX COMFORTS" class="hero-logo">
+            <p>Discover our curated world — where quality meets warmth. Every piece is designed for the modern soul.</p>
+            <div class="hero-cta">
+                <a href="collection.html" class="btn-primary">Explore now</a>
+                <a href="about.html" class="btn-outline">Learn more</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT SECTION -->
+    <section class="product-section">
+        <div class="section-title">✨ Best Selling</div>
+        <div class="product-grid" id="productGrid"></div>
+    </section>
+
+    <!-- BROWSE CATEGORIES LINK -->
+    <section class="browse-more">
+        <div class="browse-card">
+            <p>
+                🔍 Not found what you want? 
+                <a href="products.html" class="browse-link">
+                    Browse Categories <span class="arrow-icon">→</span>
+                </a>
+            </p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div class="footer-left">
+            <img src="VANTAPIX__2_-removebg-preview.png" alt="VANTAPIX COMFORTS" class="footer-logo">
+            <span class="footer-copyright">© 2026</span>
+        </div>
+        <div class="footer-right">
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="support.html">Contact</a>
+            </div>
+            <span><i class="fas fa-lock"></i> Secure checkout</span>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+    <script>
+        // Home page products (INR)
+        var homeProducts = [
+            { name: 'Aura Studio', price: 12499, icon: 'fa-headphones', rating: 4.5, desc: 'Noise-cancelling, 40h battery, immersive sound.' },
+            { name: 'Chrono V', price: 20999, icon: 'fa-watch', rating: 5, desc: 'Titanium, heart rate, GPS, always-on display.' },
+            { name: 'Nova Mug', price: 3299, icon: 'fa-mug-hot', rating: 5, desc: 'Ceramic, self-warming, 12oz, matte finish.' },
+            { name: 'Pulse Run', price: 7499, icon: 'fa-shoe-prints', rating: 5, desc: 'Lightweight, breathable, responsive cushioning.' },
+            { name: 'Zen Earbuds', price: 6599, icon: 'fa-headphones', rating: 5, desc: 'True wireless, noise isolation, 24h battery.' },
+            { name: 'Lunar Lamp', price: 4999, icon: 'fa-lightbulb', rating: 4.5, desc: 'Dimmable, warm glow, minimalist design.' }
+        ];
+
+        var grid = document.getElementById('productGrid');
+        homeProducts.forEach(function(p) {
+            var stars = '';
+            for (var i = 0; i < Math.floor(p.rating); i++) stars += '<i class="fas fa-star"></i>';
+            if (p.rating % 1 >= 0.5) stars += '<i class="fas fa-star-half-alt"></i>';
+
+            var card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="product-img"><i class="fas ${p.icon}"></i></div>
+                        <div class="product-name">${p.name}</div>
+                        <div class="product-price">₹${p.price.toLocaleString('en-IN')}</div>
+                        <div class="product-rating">${stars}</div>
+                    </div>
+                    <div class="card-back">
+                        <div class="back-title">${p.name}</div>
+                        <div class="back-desc">${p.desc}</div>
+                        <div class="btn-group">
+                            <button onclick="openQtyPopup('${p.name}', ${p.price})"><i class="fas fa-shopping-cart"></i> Buy now</button>
+                            <button onclick="openQtyPopup('${p.name}', ${p.price})"><i class="fas fa-plus"></i> Add</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    </script>
+</body>
+</html>

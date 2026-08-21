@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VANTAPIX COMFORTS · About</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            text-align: center;
+            line-height: 1.8;
+        }
+        .about-content h2 { font-size: 2rem; margin-bottom: 1rem; }
+        .about-content h2 span { color: #ff7a00; }
+        .about-content p { color: #4a4a4a; margin-bottom: 1.2rem; }
+        .about-content .values {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .about-content .values .value-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid #f0f0f0;
+        }
+        .about-content .values .value-item i {
+            font-size: 2.5rem;
+            color: #ff7a00;
+            margin-bottom: 0.8rem;
+        }
+        .about-content .values .value-item h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
+        .about-content .values .value-item p { font-size: 0.9rem; color: #666; margin-bottom: 0; }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="logo-area">
+            <img src="VANTAPIX__2_-removebg-preview.png" alt="VANTAPIX COMFORTS" class="nav-logo-img">
+        </div>
+        <div class="nav-links">
+            <a href="collection.html">Collections</a>
+            <a href="products.html">Products</a>
+            <a href="about.html" class="active">About</a>
+            <a href="support.html">Support</a>
+            <a href="orders.html">Orders</a>
+            <div class="nav-cart-wrapper" id="cartWrapper">
+                <button class="nav-cart" id="cartToggle" aria-label="Open cart">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+                <div class="cart-dropdown" id="cartDropdown">
+                    <h4>🛒 Your Cart</h4>
+                    <div id="cartItems"><div class="empty-cart">Your cart is empty.</div></div>
+                    <div class="cart-total" id="cartTotal" style="display:none;">
+                        <span>Total</span>
+                        <span>₹<span id="totalPrice">0.00</span></span>
+                    </div>
+                    <button class="checkout-btn" onclick="window.location.href='checkout.html'">Proceed to Checkout</button>
+                </div>
+            </div>
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" placeholder="Search...">
+                <button id="searchButton"><i class="fas fa-search"></i> <span>Search</span></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- QUANTITY POPUP -->
+    <div class="quantity-overlay" id="quantityOverlay">
+        <div class="quantity-modal">
+            <div class="modal-product" id="modalProductName">Product Name</div>
+            <div class="modal-product-price" id="modalProductPrice">₹0.00</div>
+            <div class="quantity-control">
+                <button id="qtyDecrease">−</button>
+                <span class="qty-number" id="qtyDisplay">1</span>
+                <button id="qtyIncrease">+</button>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-cancel" id="qtyCancel">Cancel</button>
+                <button class="btn-add-cart" id="qtyConfirm">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <h1>About <span>Us</span></h1>
+        <p>Discover the story behind VANTAPIX COMFORTS.</p>
+    </section>
+
+    <!-- ABOUT CONTENT -->
+    <section class="about-content">
+        <h2>Quality <span>Meets</span> Comfort</h2>
+        <p>At VANTAPIX COMFORTS, we believe that everyday products should be both functional and beautiful. Our journey began with a simple idea: to create a curated collection of premium items that enhance your daily life.</p>
+        <p>Every product in our store is carefully selected for its quality, design, and sustainability. We work with artisans and manufacturers who share our commitment to excellence and ethical practices.</p>
+
+        <div class="values">
+            <div class="value-item">
+                <i class="fas fa-leaf"></i>
+                <h3>Sustainability</h3>
+                <p>Eco-friendly materials and responsible sourcing.</p>
+            </div>
+            <div class="value-item">
+                <i class="fas fa-heart"></i>
+                <h3>Quality</h3>
+                <p>Premium craftsmanship built to last.</p>
+            </div>
+            <div class="value-item">
+                <i class="fas fa-smile"></i>
+                <h3>Customer First</h3>
+                <p>Your satisfaction is our priority.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div class="footer-left">
+            <img src="VANTAPIX__2_-removebg-preview.png" alt="VANTAPIX COMFORTS" class="footer-logo">
+            <span class="footer-copyright">© 2026</span>
+        </div>
+        <div class="footer-right">
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="support.html">Contact</a>
+            </div>
+            <span><i class="fas fa-lock"></i> Secure checkout</span>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

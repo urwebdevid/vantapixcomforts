@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VANTAPIX COMFORTS · Collections</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="logo-area">
+            <img src="VANTAPIX__2_-removebg-preview.png" alt="VANTAPIX COMFORTS" class="nav-logo-img">
+        </div>
+        <div class="nav-links">
+            <a href="collection.html" class="active">Collections</a>
+            <a href="products.html">Products</a>
+            <a href="about.html">About</a>
+            <a href="support.html">Support</a>
+            <a href="orders.html">Orders</a>
+            <div class="nav-cart-wrapper" id="cartWrapper">
+                <button class="nav-cart" id="cartToggle" aria-label="Open cart">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+                <div class="cart-dropdown" id="cartDropdown">
+                    <h4>🛒 Your Cart</h4>
+                    <div id="cartItems"><div class="empty-cart">Your cart is empty.</div></div>
+                    <div class="cart-total" id="cartTotal" style="display:none;">
+                        <span>Total</span>
+                        <span>₹<span id="totalPrice">0.00</span></span>
+                    </div>
+                    <button class="checkout-btn" onclick="window.location.href='checkout.html'">Proceed to Checkout</button>
+                </div>
+            </div>
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" placeholder="Search collections...">
+                <button id="searchButton"><i class="fas fa-search"></i> <span>Search</span></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- QUANTITY POPUP -->
+    <div class="quantity-overlay" id="quantityOverlay">
+        <div class="quantity-modal">
+            <div class="modal-product" id="modalProductName">Product Name</div>
+            <div class="modal-product-price" id="modalProductPrice">₹0.00</div>
+            <div class="quantity-control">
+                <button id="qtyDecrease">−</button>
+                <span class="qty-number" id="qtyDisplay">1</span>
+                <button id="qtyIncrease">+</button>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-cancel" id="qtyCancel">Cancel</button>
+                <button class="btn-add-cart" id="qtyConfirm">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <h1>Top <span>Collections</span></h1>
+        <p>Explore our curated selection of premium products, handpicked for quality and style.</p>
+    </section>
+
+    <!-- PRODUCT SECTION -->
+    <section class="product-section">
+        <div class="section-title">✨ Featured Collections</div>
+        <div class="product-grid" id="collectionGrid"></div>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div class="footer-left">
+            <img src="VANTAPIX__2_-removebg-preview.png" alt="VANTAPIX COMFORTS" class="footer-logo">
+            <span class="footer-copyright">© 2026</span>
+        </div>
+        <div class="footer-right">
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="support.html">Contact</a>
+            </div>
+            <span><i class="fas fa-lock"></i> Secure checkout</span>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+    <script>
+        var collectionProducts = [
+            { name: 'Aura Studio', price: 12499, icon: 'fa-headphones', rating: 4.5, desc: 'Noise-cancelling, 40h battery, immersive sound.' },
+            { name: 'Chrono V', price: 20999, icon: 'fa-watch', rating: 5, desc: 'Titanium, heart rate, GPS, always-on display.' },
+            { name: 'Nova Mug', price: 3299, icon: 'fa-mug-hot', rating: 5, desc: 'Ceramic, self-warming, 12oz, matte finish.' },
+            { name: 'Pulse Run', price: 7499, icon: 'fa-shoe-prints', rating: 5, desc: 'Lightweight, breathable, responsive cushioning.' },
+            { name: 'Zen Earbuds', price: 6599, icon: 'fa-headphones', rating: 5, desc: 'True wireless, noise isolation, 24h battery.' },
+            { name: 'Lunar Lamp', price: 4999, icon: 'fa-lightbulb', rating: 4.5, desc: 'Dimmable, warm glow, minimalist design.' },
+            { name: 'Velocity Backpack', price: 8299, icon: 'fa-suitcase', rating: 4.5, desc: 'Water-resistant, laptop sleeve, ergonomic design.' },
+            { name: 'Nebula Speaker', price: 10799, icon: 'fa-volume-up', rating: 4.5, desc: '360° sound, waterproof, 12h playtime.' },
+            { name: 'Terra Planter', price: 3799, icon: 'fa-seedling', rating: 4.5, desc: 'Self-watering, ceramic, modern geometric design.' },
+            { name: 'Apex Desk Mat', price: 2899, icon: 'fa-mouse', rating: 4.5, desc: 'Wool felt, non-slip, perfect for workspace.' },
+            { name: 'Solstice Candle', price: 2399, icon: 'fa-fire', rating: 4.5, desc: 'Soy wax, sandalwood & vanilla, 50h burn time.' },
+            { name: 'Voyage Journal', price: 1899, icon: 'fa-book', rating: 4.5, desc: 'Leather-bound, 192 pages, archival paper.' },
+            { name: 'Apex Water Bottle', price: 2999, icon: 'fa-tint', rating: 5, desc: 'Stainless steel, double-wall, 24h cold retention.' },
+            { name: 'Nova Pen', price: 1499, icon: 'fa-pen', rating: 4, desc: 'Minimalist, aluminum body, smooth ink flow.' },
+            { name: 'Zen Garden', price: 4599, icon: 'fa-tree', rating: 4.5, desc: 'Tabletop, sand, stones, rake, calming presence.' }
+        ];
+
+        var grid = document.getElementById('collectionGrid');
+        collectionProducts.forEach(function(p) {
+            var stars = '';
+            for (var i = 0; i < Math.floor(p.rating); i++) stars += '<i class="fas fa-star"></i>';
+            if (p.rating % 1 >= 0.5) stars += '<i class="fas fa-star-half-alt"></i>';
+
+            var card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="product-img"><i class="fas ${p.icon}"></i></div>
+                        <div class="product-name">${p.name}</div>
+                        <div class="product-price">₹${p.price.toLocaleString('en-IN')}</div>
+                        <div class="product-rating">${stars}</div>
+                    </div>
+                    <div class="card-back">
+                        <div class="back-title">${p.name}</div>
+                        <div class="back-desc">${p.desc}</div>
+                        <div class="btn-group">
+                            <button onclick="openQtyPopup('${p.name}', ${p.price})"><i class="fas fa-shopping-cart"></i> Buy now</button>
+                            <button onclick="openQtyPopup('${p.name}', ${p.price})"><i class="fas fa-plus"></i> Add</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    </script>
+</body>
+</html>

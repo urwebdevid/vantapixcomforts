@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VANTAPIX COMFORTS · Checkout</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .checkout-page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .checkout-page .order-summary {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid #f0f0f0;
+        }
+        .checkout-page .order-summary h3 {
+            font-size: 1.1rem;
+            margin-bottom: .8rem;
+        }
+        .checkout-page .order-summary .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: .4rem 0;
+            font-size: .95rem;
+            color: #4a4a4a;
+        }
+        .checkout-page .order-summary .summary-item.total {
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-top: 2px solid #f0f0f0;
+            padding-top: .8rem;
+            margin-top: .3rem;
+            color: #1e1e1e;
+        }
+        .checkout-page .order-summary .summary-item .price {
+            color: #ff7a00;
+            font-weight: 600;
+        }
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+        .payment-option {
+            background: white;
+            border: 2px solid #f0f0f0;
+            border-radius: 16px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all .3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .payment-option:hover {
+            border-color: #ff7a00;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(255,122,0,0.1);
+        }
+        .payment-option i {
+            font-size: 2.8rem;
+            color: #ff7a00;
+            margin-bottom: .6rem;
+            display: block;
+        }
+        .payment-option .option-name {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        .payment-option .option-desc {
+            font-size: .8rem;
+            color: #888;
+            margin-top: .2rem;
+        }
+        .payment-option .cod-badge {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: .15rem .6rem;
+            border-radius: 30px;
+            font-size: .6rem;
+            font-weight: 600;
+            margin-top: .3rem;
+        }
+        .payment-option .promise-badge {
+            display: inline-block;
+            background: #fff3e0;
+            color: #e65100;
+            padding: .15rem .6rem;
+            border-radius: 30px;
+            font-size: .6rem;
+            font-weight: 600;
+            margin-top: .3rem;
+        }
+        .back-to-cart {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #888;
+            text-decoration: none;
+            font-size: .9rem;
+            transition: color .2s;
+        }
+        .back-to-cart:hover { color: #ff7a00; }
+        .back-to-cart i { margin-right: 6px; }
+        @media (max-width: 600px) {
+            .payment-options {
+                grid-template-columns: repeat(2, 1fr);
+                gap: .8rem;
+            }
+            .payment-option { padding: 1rem .8rem; }
+            .payment-option i { font-size: 2rem; }
+            .checkout-page { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="logo-area">
+            <img src="VANTAPIX__2_-removebg-preview.png" alt="VANTAPIX COMFORTS" class="nav-logo-img">
+        </div>
+        <div class="nav-links">
+            <a href="collection.html">Collections</a>
+            <a href="products.html">Products</a>
+            <a href="about.html">About</a>
+            <a href="support.html">Support</a>
+            <a href="orders.html">Orders</a>
+            <div class="nav-cart-wrapper" id="cartWrapper">
+                <button class="nav-cart" id="cartToggle" aria-label="Open cart">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+                <div class="cart-dropdown" id="cartDropdown">
+                    <h4>🛒 Your Cart</h4>
+                    <div id="cartItems"><div class="empty-cart">Your cart is empty.</div></div>
+                    <div class="cart-total" id="cartTotal" style="display:none;">
+                        <span>Total</span>
+                        <span>₹<span id="totalPrice">0.00</span></span>
+                    </div>
+                    <button class="checkout-btn" onclick="window.location.href='checkout.html'">Proceed to Checkout</button>
+                </div>
+            </div>
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" placeholder="Search...">
+                <button id="searchButton"><i class="fas fa-search"></i> <span>Search</span></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- QUANTITY POPUP -->
+    <div class="quantity-overlay" id="quantityOverlay">
+        <div class="quantity-modal">
+            <div class="modal-product" id="modalProductName">Product Name</div>
+            <div class="modal-product-price" id="modalProductPrice">₹0.00</div>
+            <div class="quantity-control">
+                <button id="qtyDecrease">−</button>
+                <span class="qty-number" id="qtyDisplay">1</span>
+                <button id="qtyIncrease">+</button>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-cancel" id="qtyCancel">Cancel</button>
+                <button class="btn-add-cart" id="qtyConfirm">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <h1>Secure <span>Checkout</span></h1>
+        <p>Choose your preferred payment method.</p>
+    </section>
+
+    <!-- CHECKOUT CONTENT -->
+    <section class="checkout-page">
+        <div class="order-summary">
+            <h3>📋 Order Summary</h3>
+            <div class="summary-item">
+                <span>Subtotal</span>
+                <span class="price" id="checkoutSubtotal">₹0.00</span>
+            </div>
+            <div class="summary-item">
+                <span>Shipping</span>
+                <span class="price" id="checkoutShipping">₹0.00</span>
+            </div>
+            <div class="summary-item">
+                <span>Tax (8%)</span>
+                <span class="price" id="checkoutTax">₹0.00</span>
+            </div>
+            <div class="summary-item total">
+                <span>Total</span>
+                <span class="price" id="checkoutTotal">₹0.00</span>
+            </div>
+        </div>
+
+        <h2 style="font-size:1.3rem; font-weight:600; margin-bottom:.5rem;">Choose Payment Method</h2>
+        <p style="color:#888; font-size:.9rem; margin-bottom:1rem;">Select your preferred way to pay</p>
+
+        <div class="payment-options">
+            <a href="promise-fee.html" class="payment-option">
+                <i class="fas fa-money-bill-wave"></i>
+                <div class="option-name">Cash on Delivery</div>
+                <div class="option-desc">Pay when you receive</div>
+                <span class="cod-badge">Available</span>
+                <span class="promise-badge">✨ Promise Fee</span>
+            </a>
+            <a href="#" class="payment-option" onclick="showToast('UPI Payments coming soon!', false); return false;">
+                <i class="fas fa-mobile-alt"></i>
+                <div class="option-name">UPI Payments</div>
+                <div class="option-desc">Google Pay, PhonePe, Paytm</div>
+            </a>
+            <a href="#" class="payment-option" onclick="showToast('QR Scanning coming soon!', false); return false;">
+                <i class="fas fa-qrcode"></i>
+                <div class="option-name">QR Scanning</div>
+                <div class="option-desc">Scan &amp; pay instantly</div>
+            </a>
+            <a href="#" class="payment-option" onclick="showToast('Net Banking coming soon!', false); return false;">
+                <i class="fas fa-university"></i>
+                <div class="option-name">Net Banking</div>
+                <div class="option-desc">All major banks</div>
+            </a>
+        </div>
+
+        <a href="cart.html" class="back-to-cart"><i class="fas fa-arrow-left"></i> Back to Cart</a>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div class="footer-left">
+            <img src="VANTAPIX__2_-removebg-preview.png" alt="VANTAPIX COMFORTS" class="footer-logo">
+            <span class="footer-copyright">© 2026</span>
+        </div>
+        <div class="footer-right">
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="support.html">Contact</a>
+            </div>
+            <span><i class="fas fa-lock"></i> Secure checkout</span>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var cart = getCart();
+            if (cart.length === 0) {
+                document.querySelector('.order-summary').innerHTML = `
+                    <h3>📋 Your Cart is Empty</h3>
+                    <p style="color:#888; margin-top:.5rem;">Add some items before checking out.</p>
+                    <a href="collection.html" class="btn-primary" style="margin-top:1rem; display:inline-block;">Start Shopping</a>
+                `;
+                return;
+            }
+
+            var subtotal = 0;
+            cart.forEach(function(item) { subtotal += item.price * item.quantity; });
+            var tax = subtotal * 0.08;
+            var shipping = subtotal > 10000 ? 0 : 499;
+            var total = subtotal + tax + shipping;
+
+            document.getElementById('checkoutSubtotal').textContent = '₹' + subtotal.toFixed(2);
+            document.getElementById('checkoutShipping').textContent = shipping === 0 ? 'FREE' : '₹' + shipping.toFixed(2);
+            document.getElementById('checkoutTax').textContent = '₹' + tax.toFixed(2);
+            document.getElementById('checkoutTotal').textContent = '₹' + total.toFixed(2);
+        });
+
+        function showToast(message) {
+            var toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast show';
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(function() { toast.classList.remove('show'); }, 3000);
+        }
+    </script>
+</body>
+</html>

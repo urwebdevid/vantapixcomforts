@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VANTAPIX COMFORTS · Contact Support</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .support-contact-page {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            text-align: center;
+        }
+        .support-card {
+            background: white;
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+            border: 1px solid #f0f0f0;
+        }
+        .support-card .support-icon { font-size: 4rem; color: #ff7a00; margin-bottom: .5rem; }
+        .support-card h2 { font-size: 1.6rem; font-weight: 700; margin-bottom: .5rem; }
+        .support-card h2 span { color: #ff7a00; }
+        .support-card .sub-text { color: #666; font-size: .95rem; line-height: 1.6; margin-bottom: 1.5rem; }
+        .support-card .email-box {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 2px solid #e9ecef;
+            transition: all .3s ease;
+        }
+        .support-card .email-box:hover { border-color: #ff7a00; }
+        .support-card .email-box .email-label {
+            font-size: .8rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: .5rem;
+        }
+        .support-card .email-box .email-link {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #ff7a00;
+            text-decoration: none;
+            transition: all .3s ease;
+            display: inline-block;
+            padding: .3rem .8rem;
+            border-radius: 8px;
+        }
+        .support-card .email-box .email-link:hover {
+            background: #fff0e0;
+            color: #e66b00;
+            transform: scale(1.02);
+        }
+        .support-card .email-box .email-link i {
+            font-size: 1rem;
+            margin-left: 6px;
+        }
+        .support-card .email-box .click-hint {
+            font-size: .8rem;
+            color: #999;
+            margin-top: .3rem;
+        }
+        .support-card .back-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #999;
+            text-decoration: none;
+            font-size: .9rem;
+            transition: color .2s;
+        }
+        .support-card .back-link:hover { color: #ff7a00; }
+        .support-card .support-hours {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #f0f0f0;
+            font-size: .85rem;
+            color: #888;
+        }
+        @media (max-width: 600px) {
+            .support-contact-page { padding: 1rem; }
+            .support-card { padding: 1.8rem 1.2rem; }
+            .support-card .email-box .email-link { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="logo-area">
+            <img src="VANTAPIX__2_-removebg-preview.png" alt="VANTAPIX COMFORTS" class="nav-logo-img">
+        </div>
+        <div class="nav-links">
+            <a href="collection.html">Collections</a>
+            <a href="products.html">Products</a>
+            <a href="about.html">About</a>
+            <a href="support.html">Support</a>
+            <a href="orders.html">Orders</a>
+            <div class="nav-cart-wrapper" id="cartWrapper">
+                <button class="nav-cart" id="cartToggle" aria-label="Open cart">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+                <div class="cart-dropdown" id="cartDropdown">
+                    <h4>🛒 Your Cart</h4>
+                    <div id="cartItems"><div class="empty-cart">Your cart is empty.</div></div>
+                    <div class="cart-total" id="cartTotal" style="display:none;">
+                        <span>Total</span>
+                        <span>₹<span id="totalPrice">0.00</span></span>
+                    </div>
+                    <button class="checkout-btn" onclick="window.location.href='checkout.html'">Proceed to Checkout</button>
+                </div>
+            </div>
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" placeholder="Search...">
+                <button id="searchButton"><i class="fas fa-search"></i> <span>Search</span></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- QUANTITY POPUP -->
+    <div class="quantity-overlay" id="quantityOverlay">
+        <div class="quantity-modal">
+            <div class="modal-product" id="modalProductName">Product Name</div>
+            <div class="modal-product-price" id="modalProductPrice">₹0.00</div>
+            <div class="quantity-control">
+                <button id="qtyDecrease">−</button>
+                <span class="qty-number" id="qtyDisplay">1</span>
+                <button id="qtyIncrease">+</button>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-cancel" id="qtyCancel">Cancel</button>
+                <button class="btn-add-cart" id="qtyConfirm">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT SUPPORT -->
+    <section class="support-contact-page">
+        <div class="support-card">
+            <div class="support-icon"><i class="fas fa-headset"></i></div>
+            <h2>Contact <span>Support</span></h2>
+            <p class="sub-text">
+                Our team is here to help you with any questions about your order,
+                cancellations, or returns.
+            </p>
+            <div class="email-box">
+                <div class="email-label"><i class="fas fa-envelope"></i> Email Us</div>
+                <a href="mailto:supportvantapix@gmail.com" class="email-link">
+                    supportvantapix@gmail.com <i class="fas fa-external-link-alt"></i>
+                </a>
+                <div class="click-hint">📧 Click to open your email client</div>
+            </div>
+            <a href="promise-fee.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Promise Fee</a>
+            <div class="support-hours">
+                <i class="fas fa-clock" style="color:#ff7a00;"></i>
+                Response within 24 hours
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div class="footer-left">
+            <img src="VANTAPIX__2_-removebg-preview.png" alt="VANTAPIX COMFORTS" class="footer-logo">
+            <span class="footer-copyright">© 2026</span>
+        </div>
+        <div class="footer-right">
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="support.html">Contact</a>
+            </div>
+            <span><i class="fas fa-lock"></i> Secure checkout</span>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
