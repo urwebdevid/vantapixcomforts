@@ -10,53 +10,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        .browse-more {
-            max-width: 1280px;
-            margin: -1rem auto 3rem;
-            padding: 0 2rem;
-            text-align: center;
-        }
-        .browse-more .browse-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2.5rem 2rem;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
-            border: 1px solid #f0f0f0;
-            transition: all 0.3s ease;
-        }
-        .browse-more .browse-card:hover {
-            box-shadow: 0 8px 40px rgba(0,0,0,0.06);
-            transform: translateY(-2px);
-        }
-        .browse-more .browse-card p {
-            font-size: 1.1rem;
-            color: #4a4a4a;
-            font-weight: 400;
-        }
-        .browse-more .browse-card .browse-link {
-            color: #ff7a00;
-            font-weight: 600;
-            text-decoration: none;
-            border-bottom: 2px solid transparent;
-            transition: all 0.25s ease;
-            padding-bottom: 2px;
-        }
-        .browse-more .browse-card .browse-link:hover {
-            border-bottom-color: #ff7a00;
-            color: #e66b00;
-        }
-        .browse-more .browse-card .browse-link .arrow-icon {
-            display: inline-block;
-            margin-left: 6px;
-            transition: transform 0.25s ease;
-        }
-        .browse-more .browse-card .browse-link:hover .arrow-icon {
-            transform: translateX(6px);
-        }
-        @media (max-width: 600px) {
-            .browse-more .browse-card p { font-size: 0.95rem; }
-            .browse-more .browse-card { padding: 1.8rem 1.2rem; }
-        }
+        .browse-more { max-width: 1280px; margin: -1rem auto 3rem; padding: 0 2rem; text-align: center; }
+        .browse-more .browse-card { background: white; border-radius: 20px; padding: 2.5rem 2rem; box-shadow: 0 4px 24px rgba(0,0,0,0.04); border: 1px solid #f0f0f0; transition: all 0.3s ease; }
+        .browse-more .browse-card:hover { box-shadow: 0 8px 40px rgba(0,0,0,0.06); transform: translateY(-2px); }
+        .browse-more .browse-card p { font-size: 1.1rem; color: #4a4a4a; font-weight: 400; }
+        .browse-more .browse-card .browse-link { color: #ff7a00; font-weight: 600; text-decoration: none; border-bottom: 2px solid transparent; transition: all 0.25s ease; padding-bottom: 2px; }
+        .browse-more .browse-card .browse-link:hover { border-bottom-color: #ff7a00; color: #e66b00; }
+        .browse-more .browse-card .browse-link .arrow-icon { display: inline-block; margin-left: 6px; transition: transform 0.25s ease; }
+        .browse-more .browse-card .browse-link:hover .arrow-icon { transform: translateX(6px); }
+        @media (max-width: 600px) { .browse-more .browse-card p { font-size: 0.95rem; } .browse-more .browse-card { padding: 1.8rem 1.2rem; } }
     </style>
 </head>
 <body>
@@ -75,13 +37,14 @@
             <img src="VANTAPIX__2_-removebg-preview.png" alt="VANTAPIX COMFORTS" class="nav-logo-img">
         </div>
         <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
             <a href="collection.html">Collections</a>
             <a href="products.html">Products</a>
             <a href="about.html">About</a>
             <a href="support.html">Support</a>
             <a href="orders.html">Orders</a>
             <div class="nav-cart-wrapper" id="cartWrapper">
-                <button class="nav-cart" id="cartToggle" aria-label="Open cart">
+                <button class="nav-cart" id="cartToggle" aria-label="Open cart" onclick="window.location.href='cart.html'">
                     <i class="fas fa-shopping-bag"></i>
                     <span class="cart-badge" id="cartBadge">0</span>
                 </button>
@@ -168,7 +131,6 @@
 
     <script src="script.js"></script>
     <script>
-        // Home page products (INR)
         var homeProducts = [
             { name: 'Aura Studio', price: 12499, icon: 'fa-headphones', rating: 4.5, desc: 'Noise-cancelling, 40h battery, immersive sound.' },
             { name: 'Chrono V', price: 20999, icon: 'fa-watch', rating: 5, desc: 'Titanium, heart rate, GPS, always-on display.' },
@@ -198,13 +160,20 @@
                         <div class="back-title">${p.name}</div>
                         <div class="back-desc">${p.desc}</div>
                         <div class="btn-group">
-                            <button onclick="openQtyPopup('${p.name}', ${p.price})"><i class="fas fa-shopping-cart"></i> Buy now</button>
-                            <button onclick="openQtyPopup('${p.name}', ${p.price})"><i class="fas fa-plus"></i> Add</button>
+                            <button class="add-to-cart" data-name="${p.name}" data-price="${p.price}"><i class="fas fa-shopping-cart"></i> Buy now</button>
+                            <button class="add-to-cart" data-name="${p.name}" data-price="${p.price}"><i class="fas fa-plus"></i> Add</button>
                         </div>
                     </div>
                 </div>
             `;
             grid.appendChild(card);
+        });
+
+        // Re-bind add-to-cart after DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof attachAddToCartButtons === 'function') {
+                attachAddToCartButtons();
+            }
         });
     </script>
 </body>

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* ===== All your existing styles ===== */
+        /* Category Grid */
         .category-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; max-width: 1280px; margin: 0 auto; padding: 0 2rem 2rem; }
         .category-card { perspective: 1200px; height: 300px; border-radius: 28px; cursor: pointer; }
         .category-card .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.65s cubic-bezier(0.23,1,0.32,1); transform-style: preserve-3d; border-radius: 28px; }
@@ -31,6 +31,14 @@
         .category-results .product-grid .product-card .card-front .product-name { font-size: 1.1rem; }
         .category-results .product-grid .product-card .card-front .product-price { font-size: 1rem; }
         .no-products-msg { grid-column: 1 / -1; text-align: center; padding: 3rem 0; color: #999; font-size: 1.1rem; }
+        .category-results { max-width: 1280px; margin: 0 auto 4rem; padding: 0 2rem; }
+        .category-results .results-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 1.5rem; padding-bottom: .5rem; border-bottom: 2px solid #f0f0f0; }
+        .category-results .results-header h2 { font-size: 1.6rem; font-weight: 600; }
+        .category-results .results-header h2 span { color: #ff7a00; }
+        .category-results .results-header .close-results { background: none; border: none; font-size: 1.2rem; color: #999; cursor: pointer; transition: color .2s; padding: .4rem .8rem; border-radius: 30px; }
+        .category-results .results-header .close-results:hover { color: #e74c3c; background: #fde8e8; }
+        .category-results .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.8rem; }
+        .category-results.hidden { display: none; }
         @media (max-width: 600px) {
             .category-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.2rem; padding: 0 1rem 1rem; }
             .category-card { height: 240px; }
@@ -43,19 +51,20 @@
 </head>
 <body>
 
-    <!-- ===== NAVBAR (same as before) ===== -->
+    <!-- NAVBAR -->
     <header class="navbar">
         <div class="logo-area">
             <img src="VANTAPIX__2_-removebg-preview.png" alt="VANTAPIX COMFORTS" class="nav-logo-img">
         </div>
         <div class="nav-links">
+            <a href="index.html">Home</a>
             <a href="collection.html">Collections</a>
             <a href="products.html" class="active">Products</a>
             <a href="about.html">About</a>
             <a href="support.html">Support</a>
             <a href="orders.html">Orders</a>
             <div class="nav-cart-wrapper" id="cartWrapper">
-                <button class="nav-cart" id="cartToggle" aria-label="Open cart">
+                <button class="nav-cart" id="cartToggle" aria-label="Open cart" onclick="window.location.href='cart.html'">
                     <i class="fas fa-shopping-bag"></i>
                     <span class="cart-badge" id="cartBadge">0</span>
                 </button>
@@ -76,7 +85,7 @@
         </div>
     </header>
 
-    <!-- ===== QUANTITY POPUP ===== -->
+    <!-- QUANTITY POPUP -->
     <div class="quantity-overlay" id="quantityOverlay">
         <div class="quantity-modal">
             <div class="modal-product" id="modalProductName">Product Name</div>
@@ -93,13 +102,13 @@
         </div>
     </div>
 
-    <!-- ===== PAGE HEADER ===== -->
+    <!-- PAGE HEADER -->
     <section class="page-header">
         <h1>Product <span>Categories</span></h1>
         <p>Browse our curated categories. Hover over a category card to explore.</p>
     </section>
 
-    <!-- ===== CATEGORY GRID ===== -->
+    <!-- CATEGORY GRID -->
     <div class="category-grid">
         <!-- Electronics -->
         <div class="category-card" data-category="electronics">
@@ -179,7 +188,7 @@
         </div>
     </div>
 
-    <!-- ===== CATEGORY RESULTS ===== -->
+    <!-- CATEGORY RESULTS -->
     <div class="category-results hidden" id="categoryResults">
         <div class="results-header">
             <h2 id="resultsTitle">Products in <span>Category</span></h2>
@@ -188,7 +197,7 @@
         <div class="product-grid" id="resultsGrid"></div>
     </div>
 
-    <!-- ===== FOOTER ===== -->
+    <!-- FOOTER -->
     <div class="footer">
         <div class="footer-left">
             <img src="VANTAPIX__2_-removebg-preview.png" alt="VANTAPIX COMFORTS" class="footer-logo">
@@ -205,11 +214,9 @@
 
     <div class="toast" id="toast"></div>
 
-    <!-- ===== ALL JAVASCRIPT – NO EXTERNAL DEPENDENCIES ===== -->
+    <script src="script.js"></script>
     <script>
-        // =============================================================
-        // PRODUCT DATABASE
-        // =============================================================
+        // Product Database
         var productDatabase = [
             { name: 'Aura Studio', price: 12499, icon: 'fa-headphones', rating: 4.5, desc: 'Noise-cancelling, 40h battery, immersive sound.', category: 'electronics' },
             { name: 'Zen Earbuds', price: 6599, icon: 'fa-headphones', rating: 5, desc: 'True wireless, noise isolation, 24h battery.', category: 'electronics' },
@@ -246,9 +253,7 @@
             gadgets: 'Cool Gadgets'
         };
 
-        // =============================================================
-        // GLOBALLY DEFINED showCategory
-        // =============================================================
+        // ----- GLOBALLY DEFINED showCategory -----
         window.showCategory = function(category) {
             console.log('🔍 Showing category:', category);
             var filtered = productDatabase.filter(function(p) { return p.category === category; });
@@ -282,8 +287,8 @@
                                 <div class="back-title">${p.name}</div>
                                 <div class="back-desc">${p.desc}</div>
                                 <div class="btn-group">
-                                    <button onclick="openQtyPopup('${p.name}', ${p.price})"><i class="fas fa-shopping-cart"></i> Buy now</button>
-                                    <button onclick="openQtyPopup('${p.name}', ${p.price})"><i class="fas fa-plus"></i> Add</button>
+                                    <button class="add-to-cart" data-name="${p.name}" data-price="${p.price}"><i class="fas fa-shopping-cart"></i> Buy now</button>
+                                    <button class="add-to-cart" data-name="${p.name}" data-price="${p.price}"><i class="fas fa-plus"></i> Add</button>
                                 </div>
                             </div>
                         </div>
@@ -297,23 +302,24 @@
             setTimeout(function() {
                 resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 100);
+
+            // Re-bind add-to-cart buttons
+            if (typeof attachAddToCartButtons === 'function') {
+                attachAddToCartButtons();
+            }
         };
 
-        // =============================================================
-        // ATTACH EVENT LISTENERS TO BROWSE BUTTONS
-        // =============================================================
+        // ----- ATTACH BROWSE BUTTONS -----
         function attachBrowseButtons() {
             var buttons = document.querySelectorAll('.browse-btn');
-            console.log('🔘 Found ' + buttons.length + ' browse buttons');
             buttons.forEach(function(btn) {
-                btn.removeEventListener('click', handleBrowseClick);
-                btn.addEventListener('click', handleBrowseClick);
+                btn.removeEventListener('click', handleBrowse);
+                btn.addEventListener('click', handleBrowse);
             });
         }
 
-        function handleBrowseClick(e) {
+        function handleBrowse(e) {
             var category = this.dataset.category;
-            console.log('🖱️ Browse clicked for category:', category);
             if (typeof window.showCategory === 'function') {
                 window.showCategory(category);
             } else {
@@ -321,17 +327,13 @@
             }
         }
 
-        // =============================================================
-        // CLOSE RESULTS
-        // =============================================================
+        // ----- CLOSE RESULTS -----
         document.getElementById('closeResults').addEventListener('click', function() {
             document.getElementById('categoryResults').classList.add('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // =============================================================
-        // SEARCH
-        // =============================================================
+        // ----- SEARCH -----
         document.getElementById('searchButton').addEventListener('click', function() {
             var query = document.getElementById('searchInput').value.toLowerCase().trim();
             if (query === '') {
@@ -339,9 +341,7 @@
                 return;
             }
             var filtered = productDatabase.filter(function(p) {
-                return p.name.toLowerCase().includes(query) ||
-                       p.category.includes(query) ||
-                       p.desc.toLowerCase().includes(query);
+                return p.name.toLowerCase().includes(query) || p.category.includes(query) || p.desc.toLowerCase().includes(query);
             });
             var titleEl = document.getElementById('resultsTitle');
             titleEl.innerHTML = 'Results for "<span>' + query + '</span>"';
@@ -368,8 +368,8 @@
                                 <div class="back-title">${p.name}</div>
                                 <div class="back-desc">${p.desc}</div>
                                 <div class="btn-group">
-                                    <button onclick="openQtyPopup('${p.name}', ${p.price})"><i class="fas fa-shopping-cart"></i> Buy now</button>
-                                    <button onclick="openQtyPopup('${p.name}', ${p.price})"><i class="fas fa-plus"></i> Add</button>
+                                    <button class="add-to-cart" data-name="${p.name}" data-price="${p.price}"><i class="fas fa-shopping-cart"></i> Buy now</button>
+                                    <button class="add-to-cart" data-name="${p.name}" data-price="${p.price}"><i class="fas fa-plus"></i> Add</button>
                                 </div>
                             </div>
                         </div>
@@ -382,157 +382,23 @@
             setTimeout(function() {
                 resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 100);
+            if (typeof attachAddToCartButtons === 'function') {
+                attachAddToCartButtons();
+            }
         });
 
         document.getElementById('searchInput').addEventListener('keydown', function(e) {
             if (e.key === 'Enter') document.getElementById('searchButton').click();
         });
 
-        // =============================================================
-        // QUANTITY POPUP (self-contained)
-        // =============================================================
-        var currentProduct = null;
-        var currentQty = 1;
-
-        window.openQtyPopup = function(name, price) {
-            currentProduct = { name: name, price: price };
-            currentQty = 1;
-            document.getElementById('modalProductName').textContent = name;
-            document.getElementById('modalProductPrice').textContent = '₹' + price.toFixed(2) + ' each';
-            document.getElementById('qtyDisplay').textContent = '1';
-            document.getElementById('quantityOverlay').classList.add('open');
-            document.body.style.overflow = 'hidden';
-        };
-
-        function closeQtyPopup() {
-            document.getElementById('quantityOverlay').classList.remove('open');
-            document.body.style.overflow = '';
-            currentProduct = null;
-        }
-
-        document.getElementById('qtyDecrease').addEventListener('click', function() {
-            if (currentQty > 1) { currentQty--; document.getElementById('qtyDisplay').textContent = currentQty; }
-        });
-        document.getElementById('qtyIncrease').addEventListener('click', function() {
-            if (currentQty < 99) { currentQty++; document.getElementById('qtyDisplay').textContent = currentQty; }
-        });
-        document.getElementById('qtyCancel').addEventListener('click', closeQtyPopup);
-        document.getElementById('qtyConfirm').addEventListener('click', function() {
-            if (currentProduct) {
-                addToCart(currentProduct.name, currentProduct.price, currentQty);
-                closeQtyPopup();
-            }
-        });
-        document.getElementById('quantityOverlay').addEventListener('click', function(e) {
-            if (e.target === this) closeQtyPopup();
-        });
-
-        // =============================================================
-        // CART FUNCTIONS (self-contained)
-        // =============================================================
-        function getCart() {
-            try { return JSON.parse(localStorage.getItem('vantapixCart')) || []; } catch(e) { return []; }
-        }
-
-        function saveCart(cart) {
-            localStorage.setItem('vantapixCart', JSON.stringify(cart));
-        }
-
-        function addToCart(name, price, qty) {
-            var cart = getCart();
-            var existing = cart.find(function(item) { return item.name === name; });
-            if (existing) { existing.quantity += qty; } 
-            else { cart.push({ name: name, price: price, quantity: qty }); }
-            saveCart(cart);
-            updateBadge();
-            showToast('🛒 Added ' + qty + ' × ' + name + ' to cart!');
-        }
-
-        function updateBadge() {
-            var cart = getCart();
-            var count = 0;
-            cart.forEach(function(item) { count += item.quantity; });
-            var badge = document.getElementById('cartBadge');
-            if (badge) { badge.textContent = count; }
-            updateDropdown();
-        }
-
-        function updateDropdown() {
-            var cart = getCart();
-            var total = 0;
-            var items = document.getElementById('cartItems');
-            var totalDiv = document.getElementById('cartTotal');
-            var totalPrice = document.getElementById('totalPrice');
-            if (!items) return;
-            if (cart.length === 0) {
-                items.innerHTML = '<div class="empty-cart">Your cart is empty.</div>';
-                if (totalDiv) totalDiv.style.display = 'none';
-            } else {
-                var html = '';
-                cart.forEach(function(item, index) {
-                    total += item.price * item.quantity;
-                    html += `
-                        <div class="cart-item">
-                            <span class="item-name">${item.name} × ${item.quantity}</span>
-                            <span>
-                                <span class="item-price">₹${(item.price * item.quantity).toFixed(2)}</span>
-                                <button class="item-remove" onclick="removeFromCart(${index})">✕</button>
-                            </span>
-                        </div>
-                    `;
-                });
-                items.innerHTML = html;
-                if (totalDiv) {
-                    totalDiv.style.display = 'flex';
-                    if (totalPrice) totalPrice.textContent = total.toFixed(2);
-                }
-            }
-        }
-
-        window.removeFromCart = function(index) {
-            var cart = getCart();
-            cart.splice(index, 1);
-            saveCart(cart);
-            updateBadge();
-            showToast('✕ Item removed from cart');
-        };
-
-        function showToast(message) {
-            var toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = 'toast show';
-            clearTimeout(toast._timeout);
-            toast._timeout = setTimeout(function() { toast.classList.remove('show'); }, 3000);
-        }
-
-        // =============================================================
-        // CART TOGGLE
-        // =============================================================
-        document.getElementById('cartToggle').addEventListener('click', function(e) {
-            e.stopPropagation();
-            document.getElementById('cartDropdown').classList.toggle('open');
-        });
-        document.addEventListener('click', function(e) {
-            var wrapper = document.querySelector('.nav-cart-wrapper');
-            if (wrapper && !wrapper.contains(e.target)) {
-                document.getElementById('cartDropdown').classList.remove('open');
-            }
-        });
-
-        // =============================================================
-        // INIT
-        // =============================================================
-        function init() {
+        // ----- INIT -----
+        document.addEventListener('DOMContentLoaded', function() {
             attachBrowseButtons();
+            if (typeof attachAddToCartButtons === 'function') {
+                attachAddToCartButtons();
+            }
             updateBadge();
-            console.log('✅ Products page initialized');
-        }
-
-        if (document.readyState === 'complete' || document.readyState === 'interactive') {
-            init();
-        } else {
-            document.addEventListener('DOMContentLoaded', init);
-        }
+        });
     </script>
 </body>
 </html>

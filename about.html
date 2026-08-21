@@ -10,34 +10,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        .about-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-            text-align: center;
-            line-height: 1.8;
-        }
+        .about-content { max-width: 800px; margin: 0 auto; padding: 2rem; text-align: center; line-height: 1.8; }
         .about-content h2 { font-size: 2rem; margin-bottom: 1rem; }
         .about-content h2 span { color: #ff7a00; }
         .about-content p { color: #4a4a4a; margin-bottom: 1.2rem; }
-        .about-content .values {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        .about-content .values .value-item {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            border: 1px solid #f0f0f0;
-        }
-        .about-content .values .value-item i {
-            font-size: 2.5rem;
-            color: #ff7a00;
-            margin-bottom: 0.8rem;
-        }
+        .about-content .values { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem; }
+        .about-content .values .value-item { background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; }
+        .about-content .values .value-item i { font-size: 2.5rem; color: #ff7a00; margin-bottom: 0.8rem; }
         .about-content .values .value-item h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
         .about-content .values .value-item p { font-size: 0.9rem; color: #666; margin-bottom: 0; }
     </style>
@@ -50,13 +29,14 @@
             <img src="VANTAPIX__2_-removebg-preview.png" alt="VANTAPIX COMFORTS" class="nav-logo-img">
         </div>
         <div class="nav-links">
+            <a href="index.html">Home</a>
             <a href="collection.html">Collections</a>
             <a href="products.html">Products</a>
             <a href="about.html" class="active">About</a>
             <a href="support.html">Support</a>
             <a href="orders.html">Orders</a>
             <div class="nav-cart-wrapper" id="cartWrapper">
-                <button class="nav-cart" id="cartToggle" aria-label="Open cart">
+                <button class="nav-cart" id="cartToggle" aria-label="Open cart" onclick="window.location.href='cart.html'">
                     <i class="fas fa-shopping-bag"></i>
                     <span class="cart-badge" id="cartBadge">0</span>
                 </button>
@@ -70,10 +50,7 @@
                     <button class="checkout-btn" onclick="window.location.href='checkout.html'">Proceed to Checkout</button>
                 </div>
             </div>
-            <div class="search-wrapper">
-                <input type="text" id="searchInput" placeholder="Search...">
-                <button id="searchButton"><i class="fas fa-search"></i> <span>Search</span></button>
-            </div>
+            <!-- No search bar on about page -->
         </div>
     </header>
 

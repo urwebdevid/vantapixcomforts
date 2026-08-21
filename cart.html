@@ -9,113 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <style>
-        .cart-page {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        .cart-page .cart-item-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.2rem 0;
-            border-bottom: 1px solid #f0f0f0;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-        }
-        .cart-page .cart-item-row .item-details {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        .cart-page .cart-item-row .item-details .item-icon {
-            font-size: 2rem;
-            color: #ff7a00;
-            width: 50px;
-            text-align: center;
-        }
-        .cart-page .cart-item-row .item-details .item-name { font-weight: 600; }
-        .cart-page .cart-item-row .item-details .item-price { color: #888; font-size: 0.9rem; }
-        .cart-page .cart-item-row .item-qty {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-        .cart-page .cart-item-row .item-qty button {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            border: 1px solid #ddd;
-            background: white;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.2s;
-        }
-        .cart-page .cart-item-row .item-qty button:hover {
-            border-color: #ff7a00;
-            color: #ff7a00;
-        }
-        .cart-page .cart-item-row .item-qty span {
-            min-width: 30px;
-            text-align: center;
-            font-weight: 600;
-        }
-        .cart-page .cart-item-row .item-remove {
-            color: #ccc;
-            cursor: pointer;
-            transition: color 0.2s;
-            background: none;
-            border: none;
-            font-size: 1.2rem;
-        }
-        .cart-page .cart-item-row .item-remove:hover { color: #e74c3c; }
-        .cart-page .cart-summary {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: white;
-            border-radius: 16px;
-            border: 1px solid #f0f0f0;
-        }
-        .cart-page .cart-summary .summary-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.5rem 0;
-            font-size: 1rem;
-        }
-        .cart-page .cart-summary .summary-row.total {
-            font-weight: 700;
-            font-size: 1.2rem;
-            border-top: 2px solid #f0f0f0;
-            padding-top: 1rem;
-            margin-top: 0.5rem;
-        }
-        .cart-page .cart-summary .summary-row .price-highlight { color: #ff7a00; }
-        .cart-page .checkout-actions {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-        }
-        .cart-page .checkout-actions .btn-primary {
-            flex: 1;
-            min-width: 150px;
-            text-align: center;
-        }
-        .cart-page .checkout-actions .btn-outline {
-            flex: 1;
-            min-width: 150px;
-            text-align: center;
-        }
-        .empty-cart-page {
-            text-align: center;
-            padding: 4rem 0;
-        }
-        .empty-cart-page i { font-size: 4rem; color: #ddd; margin-bottom: 1rem; }
-        .empty-cart-page h2 { font-size: 1.8rem; color: #666; }
-        .empty-cart-page p { color: #999; margin-top: 0.5rem; }
-        .empty-cart-page .btn-primary { margin-top: 1.5rem; display: inline-block; }
-    </style>
 </head>
 <body>
 
@@ -125,13 +18,14 @@
             <img src="VANTAPIX__2_-removebg-preview.png" alt="VANTAPIX COMFORTS" class="nav-logo-img">
         </div>
         <div class="nav-links">
+            <a href="index.html">Home</a>
             <a href="collection.html">Collections</a>
             <a href="products.html">Products</a>
             <a href="about.html">About</a>
             <a href="support.html">Support</a>
             <a href="orders.html">Orders</a>
             <div class="nav-cart-wrapper" id="cartWrapper">
-                <button class="nav-cart" id="cartToggle" aria-label="Open cart">
+                <button class="nav-cart" id="cartToggle" aria-label="Open cart" onclick="window.location.href='cart.html'">
                     <i class="fas fa-shopping-bag"></i>
                     <span class="cart-badge" id="cartBadge">0</span>
                 </button>
@@ -145,29 +39,9 @@
                     <button class="checkout-btn" onclick="window.location.href='checkout.html'">Proceed to Checkout</button>
                 </div>
             </div>
-            <div class="search-wrapper">
-                <input type="text" id="searchInput" placeholder="Search...">
-                <button id="searchButton"><i class="fas fa-search"></i> <span>Search</span></button>
-            </div>
+            <!-- No search bar on cart page -->
         </div>
     </header>
-
-    <!-- QUANTITY POPUP -->
-    <div class="quantity-overlay" id="quantityOverlay">
-        <div class="quantity-modal">
-            <div class="modal-product" id="modalProductName">Product Name</div>
-            <div class="modal-product-price" id="modalProductPrice">₹0.00</div>
-            <div class="quantity-control">
-                <button id="qtyDecrease">−</button>
-                <span class="qty-number" id="qtyDisplay">1</span>
-                <button id="qtyIncrease">+</button>
-            </div>
-            <div class="modal-actions">
-                <button class="btn-cancel" id="qtyCancel">Cancel</button>
-                <button class="btn-add-cart" id="qtyConfirm">Add to Cart</button>
-            </div>
-        </div>
-    </div>
 
     <!-- PAGE HEADER -->
     <section class="page-header">
@@ -199,7 +73,8 @@
 
     <script src="script.js"></script>
     <script>
-        function renderCartPage() {
+        // Render cart items
+        function renderCart() {
             var container = document.getElementById('cartItemsContainer');
             var cart = getCart();
 
@@ -280,7 +155,7 @@
             if (cart[index]) {
                 cart[index].quantity = Math.max(1, cart[index].quantity + change);
                 saveCart(cart);
-                renderCartPage();
+                renderCart();
                 updateBadge();
             }
         }
@@ -289,13 +164,13 @@
             var cart = getCart();
             cart.splice(index, 1);
             saveCart(cart);
-            renderCartPage();
+            renderCart();
             updateBadge();
             showToast('Item removed from cart');
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            renderCartPage();
+            renderCart();
             updateBadge();
         });
     </script>

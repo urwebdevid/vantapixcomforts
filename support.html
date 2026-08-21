@@ -10,99 +10,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        .support-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        .support-content .faq-item {
-            background: white;
-            border-radius: 12px;
-            padding: 1.2rem 1.5rem;
-            margin-bottom: 1rem;
-            border: 1px solid #f0f0f0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .support-content .faq-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-        }
-        .support-content .faq-item h3 {
-            font-size: 1.05rem;
-            font-weight: 600;
-            color: #1e1e1e;
-            margin-bottom: 0.3rem;
-        }
-        .support-content .faq-item p {
-            color: #5a5a5a;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-        .support-content .contact-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-            text-align: center;
-        }
-        .support-content .contact-info .contact-item {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 16px;
-            border: 1px solid #f0f0f0;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .support-content .contact-info .contact-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-        }
-        .support-content .contact-info .contact-item i {
-            font-size: 2rem;
-            color: #ff7a00;
-            margin-bottom: 0.5rem;
-        }
-        .support-content .contact-info .contact-item h4 {
-            font-size: 1rem;
-            margin-bottom: 0.2rem;
-        }
-        .support-content .contact-info .contact-item p {
-            color: #666;
-            font-size: 0.9rem;
-        }
-        .support-content .contact-info .contact-item .email-link {
-            color: #ff7a00;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.2s;
-            display: inline-block;
-            padding: 0.2rem 0.4rem;
-            border-radius: 6px;
-        }
-        .support-content .contact-info .contact-item .email-link:hover {
-            background: #fff0e0;
-            color: #e66b00;
-        }
-        .support-content .cod-badge {
-            display: inline-block;
-            background: #e8f5e9;
-            color: #2e7d32;
-            padding: 0.2rem 0.8rem;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            margin-left: 0.5rem;
-        }
-        .support-content .promise-badge {
-            display: inline-block;
-            background: #fff3e0;
-            color: #e65100;
-            padding: 0.2rem 0.8rem;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            margin-left: 0.5rem;
-        }
+        .support-content { max-width: 800px; margin: 0 auto; padding: 2rem; }
+        .support-content .faq-item { background: white; border-radius: 12px; padding: 1.2rem 1.5rem; margin-bottom: 1rem; border: 1px solid #f0f0f0; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .support-content .faq-item:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
+        .support-content .faq-item h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.3rem; }
+        .support-content .faq-item p { color: #5a5a5a; font-size: 0.95rem; line-height: 1.6; }
+        .support-content .contact-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem; text-align: center; }
+        .support-content .contact-info .contact-item { background: white; padding: 1.5rem; border-radius: 16px; border: 1px solid #f0f0f0; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .support-content .contact-info .contact-item:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+        .support-content .contact-info .contact-item i { font-size: 2rem; color: #ff7a00; margin-bottom: 0.5rem; }
+        .support-content .contact-info .contact-item h4 { font-size: 1rem; margin-bottom: 0.2rem; }
+        .support-content .contact-info .contact-item p { color: #666; font-size: 0.9rem; }
+        .support-content .contact-info .contact-item .email-link { color: #ff7a00; text-decoration: none; font-weight: 500; transition: all 0.2s; display: inline-block; padding: 0.2rem 0.4rem; border-radius: 6px; }
+        .support-content .contact-info .contact-item .email-link:hover { background: #fff0e0; color: #e66b00; }
+        .support-content .cod-badge, .support-content .promise-badge { display: inline-block; padding: 0.2rem 0.8rem; border-radius: 30px; font-size: 0.7rem; font-weight: 600; margin-left: 0.5rem; }
+        .support-content .cod-badge { background: #e8f5e9; color: #2e7d32; }
+        .support-content .promise-badge { background: #fff3e0; color: #e65100; }
     </style>
 </head>
 <body>
@@ -113,13 +36,14 @@
             <img src="VANTAPIX__2_-removebg-preview.png" alt="VANTAPIX COMFORTS" class="nav-logo-img">
         </div>
         <div class="nav-links">
+            <a href="index.html">Home</a>
             <a href="collection.html">Collections</a>
             <a href="products.html">Products</a>
             <a href="about.html">About</a>
             <a href="support.html" class="active">Support</a>
             <a href="orders.html">Orders</a>
             <div class="nav-cart-wrapper" id="cartWrapper">
-                <button class="nav-cart" id="cartToggle" aria-label="Open cart">
+                <button class="nav-cart" id="cartToggle" aria-label="Open cart" onclick="window.location.href='cart.html'">
                     <i class="fas fa-shopping-bag"></i>
                     <span class="cart-badge" id="cartBadge">0</span>
                 </button>
@@ -133,10 +57,7 @@
                     <button class="checkout-btn" onclick="window.location.href='checkout.html'">Proceed to Checkout</button>
                 </div>
             </div>
-            <div class="search-wrapper">
-                <input type="text" id="searchInput" placeholder="Search...">
-                <button id="searchButton"><i class="fas fa-search"></i> <span>Search</span></button>
-            </div>
+            <!-- No search bar on support page -->
         </div>
     </header>
 

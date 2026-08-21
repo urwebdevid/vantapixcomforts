@@ -10,40 +10,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        .orders-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        .order-item {
-            background: white;
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 1.2rem;
-            border: 1px solid #f0f0f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .order-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-        }
+        .orders-content { max-width: 800px; margin: 0 auto; padding: 2rem; }
+        .order-item { background: white; border-radius: 16px; padding: 1.5rem; margin-bottom: 1.2rem; border: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .order-item:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
         .order-item .order-info h4 { font-size: 1.05rem; font-weight: 600; }
         .order-item .order-info p { color: #666; font-size: 0.9rem; }
-        .order-item .order-status {
-            padding: 0.3rem 1rem;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        .order-status.shipped { background: #e3f7e3; color: #2e7d32; }
-        .order-status.processing { background: #fff3e0; color: #e65100; }
-        .order-status.delivered { background: #e3f0ff; color: #0d47a1; }
-        .order-status.cancelled { background: #fde8e8; color: #c62828; }
     </style>
 </head>
 <body>
@@ -54,13 +25,14 @@
             <img src="VANTAPIX__2_-removebg-preview.png" alt="VANTAPIX COMFORTS" class="nav-logo-img">
         </div>
         <div class="nav-links">
+            <a href="index.html">Home</a>
             <a href="collection.html">Collections</a>
             <a href="products.html">Products</a>
             <a href="about.html">About</a>
             <a href="support.html">Support</a>
             <a href="orders.html" class="active">Orders</a>
             <div class="nav-cart-wrapper" id="cartWrapper">
-                <button class="nav-cart" id="cartToggle" aria-label="Open cart">
+                <button class="nav-cart" id="cartToggle" aria-label="Open cart" onclick="window.location.href='cart.html'">
                     <i class="fas fa-shopping-bag"></i>
                     <span class="cart-badge" id="cartBadge">0</span>
                 </button>
@@ -74,29 +46,9 @@
                     <button class="checkout-btn" onclick="window.location.href='checkout.html'">Proceed to Checkout</button>
                 </div>
             </div>
-            <div class="search-wrapper">
-                <input type="text" id="searchInput" placeholder="Search orders...">
-                <button id="searchButton"><i class="fas fa-search"></i> <span>Search</span></button>
-            </div>
+            <!-- No search bar on orders page -->
         </div>
     </header>
-
-    <!-- QUANTITY POPUP -->
-    <div class="quantity-overlay" id="quantityOverlay">
-        <div class="quantity-modal">
-            <div class="modal-product" id="modalProductName">Product Name</div>
-            <div class="modal-product-price" id="modalProductPrice">₹0.00</div>
-            <div class="quantity-control">
-                <button id="qtyDecrease">−</button>
-                <span class="qty-number" id="qtyDisplay">1</span>
-                <button id="qtyIncrease">+</button>
-            </div>
-            <div class="modal-actions">
-                <button class="btn-cancel" id="qtyCancel">Cancel</button>
-                <button class="btn-add-cart" id="qtyConfirm">Add to Cart</button>
-            </div>
-        </div>
-    </div>
 
     <!-- PAGE HEADER -->
     <section class="page-header">
@@ -106,34 +58,41 @@
 
     <!-- ORDERS CONTENT -->
     <section class="orders-content">
+        <!-- Order 1 – Processing -->
         <div class="order-item">
             <div class="order-info">
                 <h4>Order #12345</h4>
                 <p>2 items · Placed on Jan 15, 2026</p>
                 <p style="font-size:0.85rem; color:#888;">Aura Studio, Nova Mug</p>
             </div>
-            <span class="order-status shipped">Shipped</span>
+            <span class="order-status processing">Processing</span>
         </div>
+
+        <!-- Order 2 – Shipped -->
         <div class="order-item">
             <div class="order-info">
                 <h4>Order #12344</h4>
-                <p>1 item · Placed on Jan 10, 2026</p>
+                <p>1 item · Placed on Jan 12, 2026</p>
                 <p style="font-size:0.85rem; color:#888;">Chrono V</p>
             </div>
-            <span class="order-status delivered">Delivered</span>
+            <span class="order-status shipped">Shipped</span>
         </div>
+
+        <!-- Order 3 – Delivered -->
         <div class="order-item">
             <div class="order-info">
                 <h4>Order #12343</h4>
-                <p>3 items · Placed on Jan 5, 2026</p>
+                <p>3 items · Placed on Jan 8, 2026</p>
                 <p style="font-size:0.85rem; color:#888;">Pulse Run, Zen Earbuds, Lunar Lamp</p>
             </div>
-            <span class="order-status processing">Processing</span>
+            <span class="order-status delivered">Delivered</span>
         </div>
+
+        <!-- Order 4 – Cancelled -->
         <div class="order-item">
             <div class="order-info">
                 <h4>Order #12342</h4>
-                <p>1 item · Placed on Dec 28, 2025</p>
+                <p>1 item · Placed on Jan 5, 2026</p>
                 <p style="font-size:0.85rem; color:#888;">Nova Mug</p>
             </div>
             <span class="order-status cancelled">Cancelled</span>
